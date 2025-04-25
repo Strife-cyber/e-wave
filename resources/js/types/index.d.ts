@@ -35,4 +35,33 @@ export interface User {
     updated_at: string;
 }
 
+export interface Lesson {
+    id: number;
+    course_id: number;
+    title: string;
+    type: string;
+    content: string;
+    order_no: number;
+    bright: string;
+}
+
+export interface Group {
+    id: number;
+    name: string;
+    course_id: number;
+    created_by: number;
+    bright: string;
+}
+
+export interface Course {
+    id: number;
+    title: string;
+    description: string;
+    text: string;
+    bright: string;
+    created_by: number;
+    lessons: Lesson[];
+    groups: Group[];
+}
+
 export type BreadcrumbItemType = BreadcrumbItem;

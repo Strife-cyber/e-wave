@@ -18,7 +18,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * Class Group
  *
  * Represents a group in the EduWave platform, which facilitates collaboration among users.
- * Groups are associated with a course and created by a user (typically a teacher or student).
+ * Groups are associated with a courses and created by a user (typically a teacher or student).
  * They support real-time collaboration features like chat, whiteboards, and video calls through
  * related group messages and collaboration records.
  *
@@ -26,13 +26,13 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  *
  * @property int $id The unique identifier for the group.
  * @property string $name The name of the group.
- * @property int $course_id The ID of the course this group is associated with.
+ * @property int $course_id The ID of the courses this group is associated with.
  * @property int $created_by The ID of the user who created the group.
  * @property Carbon $created_at Timestamp when the group was created.
  * @property Carbon $updated_at Timestamp when the group was last updated.
  * @property bool $bright Indicates if the group is marked as "bright" (e.g., highlighted or active).
  *
- * @property Course $course The course this group is associated with.
+ * @property Course $courses The courses this group is associated with.
  * @property User $user The user who created this group.
  * @property Collection|GroupMember[] $group_members Members of this group.
  * @property Collection|GroupMessage[] $group_messages Messages sent within this group.
@@ -88,10 +88,10 @@ class Group extends Model
     ];
 
     /**
-     * Get the course this group is associated with.
+     * Get the courses this group is associated with.
      *
      * This defines a many-to-one relationship between the Group and Course models.
-     * Each group is associated with exactly one course.
+     * Each group is associated with exactly one courses.
      *
      * @return BelongsTo The relationship to the Course model.
      */

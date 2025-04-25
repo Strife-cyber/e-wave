@@ -17,24 +17,24 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 /**
  * Class Course
  *
- * Represents a course in the EduWave platform, which is a collection of lessons created by a user
+ * Represents a courses in the EduWave platform, which is a collection of lessons created by a user
  * (typically a teacher). Courses can have associated groups for collaboration and are a core part of
  * the learning infrastructure.
  *
  * @package App\Models
  *
- * @property int $id The unique identifier for the course.
- * @property string $title The title of the course.
- * @property string|null $description A brief description of the course (optional).
- * @property string $text Additional text content related to the course.
- * @property bool $bright Indicates if the course is marked as "bright" (e.g., highlighted or active).
- * @property int $created_by The ID of the user who created the course.
- * @property Carbon $created_at Timestamp when the course was created.
- * @property Carbon $updated_at Timestamp when the course was last updated.
+ * @property int $id The unique identifier for the courses.
+ * @property string $title The title of the courses.
+ * @property string|null $description A brief description of the courses (optional).
+ * @property string $text Additional text content related to the courses.
+ * @property bool $bright Indicates if the courses is marked as "bright" (e.g., highlighted or active).
+ * @property int $created_by The ID of the user who created the courses.
+ * @property Carbon $created_at Timestamp when the courses was created.
+ * @property Carbon $updated_at Timestamp when the courses was last updated.
  *
- * @property User $user The user who created this course.
- * @property Collection|Lesson[] $lessons Lessons that belong to this course.
- * @property Collection|Group[] $groups Groups associated with this course for collaboration.
+ * @property User $user The user who created this courses.
+ * @property Collection|Lesson[] $lessons Lessons that belong to this courses.
+ * @property Collection|Group[] $groups Groups associated with this courses for collaboration.
  *
  * @method static Builder|Course newModelQuery()
  * @method static Builder|Course newQuery()
@@ -75,7 +75,7 @@ class Course extends Model
     /**
      * The attributes that are mass assignable.
      *
-     * These fields can be filled using mass assignment (e.g., during course creation or update).
+     * These fields can be filled using mass assignment (e.g., during courses creation or update).
      *
      * @var array<int, string>
      */
@@ -88,10 +88,10 @@ class Course extends Model
     ];
 
     /**
-     * Get the user who created this course.
+     * Get the user who created this courses.
      *
      * This defines a many-to-one relationship between the Course and User models.
-     * Each course is created by exactly one user (typically a teacher).
+     * Each courses is created by exactly one user (typically a teacher).
      *
      * @return BelongsTo The relationship to the User model.
      */
@@ -101,10 +101,10 @@ class Course extends Model
     }
 
     /**
-     * Get the lessons that belong to this course.
+     * Get the lessons that belong to this courses.
      *
      * This defines a one-to-many relationship between the Course and Lesson models.
-     * A course can have multiple lessons associated with it.
+     * A courses can have multiple lessons associated with it.
      *
      * @return HasMany The relationship to the Lesson model.
      */
@@ -114,10 +114,10 @@ class Course extends Model
     }
 
     /**
-     * Get the groups associated with this course.
+     * Get the groups associated with this courses.
      *
      * This defines a one-to-many relationship between the Course and Group models.
-     * A course can have multiple groups for collaboration among students.
+     * A courses can have multiple groups for collaboration among students.
      *
      * @return HasMany The relationship to the Group model.
      */

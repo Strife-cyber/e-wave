@@ -17,23 +17,23 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 /**
  * Class Lesson
  *
- * Represents a lesson in the EduWave platform, which belongs to a course and can be of various types
+ * Represents a lesson in the EduWave platform, which belongs to a courses and can be of various types
  * (e.g., video, quiz, game). Lessons are the core learning units that users interact with, and they
  * can have associated progress tracking and echo cards generated from discussions.
  *
  * @package App\Models
  *
  * @property int $id The unique identifier for the lesson.
- * @property int $course_id The ID of the course this lesson belongs to.
+ * @property int $course_id The ID of the courses this lesson belongs to.
  * @property string $title The title of the lesson.
  * @property string $type The type of the lesson (e.g., 'video', 'quiz', 'game').
  * @property string $content The content of the lesson, typically stored as HTML or text.
- * @property int $order_no The order of the lesson within its course.
+ * @property int $order_no The order of the lesson within its courses.
  * @property Carbon $created_at Timestamp when the lesson was created.
  * @property Carbon $updated_at Timestamp when the lesson was last updated.
  * @property bool $bright Indicates if the lesson is marked as "bright" (e.g., highlighted or active).
  *
- * @property Course $course The course this lesson belongs to.
+ * @property Course $courses The courses this lesson belongs to.
  * @property Collection|UserProgress[] $user_progresses Progress records of users for this lesson.
  * @property Collection|EchoCard[] $echo_cards Echo cards generated from discussions related to this lesson.
  *
@@ -91,10 +91,10 @@ class Lesson extends Model
     ];
 
     /**
-     * Get the course that this lesson belongs to.
+     * Get the courses that this lesson belongs to.
      *
      * This defines a many-to-one relationship between the Lesson and Course models.
-     * Each lesson is associated with exactly one course.
+     * Each lesson is associated with exactly one courses.
      *
      * @return BelongsTo The relationship to the Course model.
      */
