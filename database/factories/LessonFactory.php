@@ -13,19 +13,28 @@ class LessonFactory extends Factory
 {
     protected $model = Lesson::class;
 
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
     public function definition(): array
     {
         return [
             'course_id' => Course::factory(),
-            'title' => fake()->sentence(4),
-            'type' => fake()->randomElement(['video', 'quiz', 'game']),
-            'content' => fake()->paragraph(),
-            'order_no' => fake()->numberBetween(1, 10)
+            'title' => $this->faker->sentence(4),
+            'type' => $this->faker->randomElement(['video', 'quiz', 'game', 'html']),
+            'html' => '', // you can later override this with a state()
+            'content' => $this->faker->paragraphs(2, true),
+            'order_no' => $this->faker->numberBetween(1, 10)
         ];
+    }
+
+    /**
+     * Optionally include static HTML from a file for html-type lessons.
+     */
+    public function withHtmlContent(string $path = 'factory/index.html'): self
+    {
+        return $this->state(function () use ($path) {
+            return [
+                'type' => 'html',
+                'html' => $path,
+            ];
+        });
     }
 }

@@ -15,8 +15,9 @@ return new class extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('course_id');
             $table->string('title');
-            $table->enum('type', ['video', 'quiz', 'game']);
+            $table->enum('type', ['video', 'quiz', 'game', 'html', 'other']);
             $table->text('content');
+            $table->text('html');
             $table->integer('order_no');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();

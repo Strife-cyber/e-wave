@@ -35,7 +35,7 @@ class DatabaseSeeder extends Seeder
                     'created_by' => $user->id,
                 ]);
                 $courses->each(function ($course) {
-                    Lesson::factory()->count(5)->create([
+                    Lesson::factory()->withHtmlContent()->count(10)->create([
                         'course_id' => $course->id,
                     ]);
                 });

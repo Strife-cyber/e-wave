@@ -2,16 +2,44 @@
 
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\LessonController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
+// Public route
 Route::get('/', function () {
     return Inertia::render('Welcome');
 })->name('home');
 
-Route::get('dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
-Route::resource('courses', CourseController::class);
-Route::get('user/courses', [CourseController::class, 'courses'])->name('user.courses');
+// Authenticated and verified user routes
+Route::middleware(['auth', 'verified'])->group(function () {
 
-require __DIR__.'/settings.php';
-require __DIR__.'/auth.php';
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+    // Courses Routes
+    Route::prefix('courses')->name('courses.')->group(function () {
+        Route::get('enroll/{course}', [CourseController::class, 'enroll'])->name('enroll');
+        Route::resource('/', CourseController::class)->parameters(['' => 'course'])->except(['create', 'edit'])->names([
+            'index' => 'index',
+            'store' => 'store',
+            'show' => 'show',
+            'update' => 'update',
+            'destroy' => 'destroy',
+        ]);
+    });
+
+    // Lessons Routes
+    Route::resource('lessons', LessonController::class)->except(['create', 'edit']);
+
+    // User-specific routes
+    Route::prefix('user')->name('user.')->group(function () {
+        Route::get('courses', [CourseController::class, 'courses'])->name('courses');
+        Route::get('courses/{course}', [CourseController::class, 'showCourse'])->name('courses.show');
+        Route::get('courses/{course}/lessons', [LessonController::class, 'lessons'])->name('courses.lessons');
+    });
+
+});
+
+// Additional route files
+require __DIR__ . '/settings.php';
+require __DIR__ . '/auth.php';

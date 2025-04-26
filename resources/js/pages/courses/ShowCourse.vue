@@ -15,8 +15,9 @@ const sortedLessons = computed(() => {
 });
 
 const breadcrumbs: BreadcrumbItem[] = [
-    { title: 'Courses', href: '/courses' },
-    { title: props.course?.id, href: `/courses/${props.course?.id}` },
+    { title: 'Dashboard', href: '/dashboard' },
+    { title: 'My Courses', href: '/user/courses' },
+    { title: props.course?.id, href: `/user/courses/${props.course?.id}` },
 ];
 </script>
 
@@ -130,25 +131,33 @@ const breadcrumbs: BreadcrumbItem[] = [
                                 v-if="course.lessons.length > 0"
                                 class="rounded-xl border border-gray-100 bg-white p-8 shadow-lg transition-all duration-300 hover:shadow-xl dark:border-gray-700 dark:bg-gray-800"
                             >
-                                <h2 class="mb-6 flex items-center text-2xl font-bold text-gray-900 dark:text-white">
-                                    <span class="mr-3 flex h-8 w-8 items-center justify-center rounded-full bg-purple-100 dark:bg-purple-900/50">
-                                        <svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            class="h-4 w-4 text-purple-600 dark:text-purple-300"
-                                            fill="none"
-                                            viewBox="0 0 24 24"
-                                            stroke="currentColor"
-                                        >
-                                            <path
-                                                stroke-linecap="round"
-                                                stroke-linejoin="round"
-                                                stroke-width="2"
-                                                d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
-                                            />
-                                        </svg>
-                                    </span>
-                                    Lessons
-                                </h2>
+                                <div class="flex items-center justify-between">
+                                    <h2 class="mb-6 flex items-center text-2xl font-bold text-gray-900 dark:text-white">
+                                        <span class="mr-3 flex h-8 w-8 items-center justify-center rounded-full bg-purple-100 dark:bg-purple-900/50">
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                class="h-4 w-4 text-purple-600 dark:text-purple-300"
+                                                fill="none"
+                                                viewBox="0 0 24 24"
+                                                stroke="currentColor"
+                                            >
+                                                <path
+                                                    stroke-linecap="round"
+                                                    stroke-linejoin="round"
+                                                    stroke-width="2"
+                                                    d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+                                                />
+                                            </svg>
+                                        </span>
+                                        Lessons
+                                    </h2>
+                                    <a
+                                        :href="`/user/courses/${props.course?.id}/lessons`"
+                                        class="cursor-pointer hover:text-purple-400 hover:underline"
+                                    >
+                                        View All
+                                    </a>
+                                </div>
                                 <ul class="space-y-6">
                                     <li
                                         v-for="lesson in sortedLessons.splice(0, 4)"
@@ -352,27 +361,6 @@ const breadcrumbs: BreadcrumbItem[] = [
                                         </div>
                                     </li>
                                 </ul>
-                            </div>
-
-                            <!-- Join Course Button -->
-                            <div
-                                class="rounded-xl border border-gray-100 bg-white p-6 shadow-lg transition-all duration-300 hover:shadow-xl dark:border-gray-700 dark:bg-gray-800"
-                            >
-                                <a
-                                    :href="`/courses/enroll/${course?.id}`"
-                                    class="flex w-full items-center justify-center rounded-lg bg-purple-600 px-4 py-3 font-medium text-white transition-colors duration-300 hover:bg-purple-700"
-                                >
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        class="mr-2 h-5 w-5"
-                                        fill="none"
-                                        viewBox="0 0 24 24"
-                                        stroke="currentColor"
-                                    >
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                                    </svg>
-                                    Enroll in Course
-                                </a>
                             </div>
                         </div>
                     </div>

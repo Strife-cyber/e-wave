@@ -39,10 +39,12 @@ export interface Lesson {
     id: number;
     course_id: number;
     title: string;
-    type: string;
+    type: 'video' | 'quiz' | 'game' | 'html' | 'other';
     content: string;
     order_no: number;
-    bright: string;
+    created_at: string;
+    updated_at: string;
+    bright: boolean;
 }
 
 export interface Group {

@@ -230,7 +230,7 @@ const breadcrumbs: BreadcrumbItem[] = [{ title: 'Dashboard', href: '/dashboard' 
                             <div v-if="courses.length === 0" class="py-4 text-center text-gray-500 dark:text-gray-400">No courses enrolled yet.</div>
                             <div v-else class="space-y-4">
                                 <div
-                                    v-for="course in courses"
+                                    v-for="course in courses?.slice(0, 3)"
                                     :key="course.id"
                                     class="course-card rounded-lg border border-gray-200 p-4 transition-colors hover:bg-gray-50 dark:border-gray-700 dark:hover:bg-gray-700"
                                 >
@@ -284,7 +284,7 @@ const breadcrumbs: BreadcrumbItem[] = [{ title: 'Dashboard', href: '/dashboard' 
                             </div>
                             <div v-else class="grid grid-cols-1 gap-4 md:grid-cols-2">
                                 <div
-                                    v-for="(card, index) in echoCards"
+                                    v-for="(card, index) in echoCards?.slice(0, 6)"
                                     :key="card.id"
                                     class="echo-card rounded-lg border border-gray-200 p-4 transition-all hover:shadow-md dark:border-gray-700"
                                     :class="{ 'bg-purple-50 dark:bg-purple-900/20': index === 0 }"

@@ -10,7 +10,7 @@ const props = defineProps<{
 }>();
 
 function goToCourse(courseId) {
-    router.visit(`/courses/${courseId}`);
+    router.visit(`/user/courses/${courseId}`);
 }
 
 // Animation states

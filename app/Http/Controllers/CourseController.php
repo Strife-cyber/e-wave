@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Course;
 use App\Models\User;
+use App\Models\UserProgress;
 use Illuminate\Http\Request;
 use App\Http\Requests\CourseStoreRequest;
 use App\Http\Requests\CourseUpdateRequest;
 use Inertia\Inertia;
+use function Pest\Laravel\json;
 
 class CourseController extends Controller
 {
@@ -43,7 +45,7 @@ class CourseController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(App\Http\Requests\CourseStoreRequest $request)
+    public function store(CourseStoreRequest $request)
     {
         //
     }
@@ -72,7 +74,7 @@ class CourseController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(App\Http\Requests\CourseUpdateRequest $request, Course $course)
+    public function update(CourseUpdateRequest $request, Course $course)
     {
         //
     }
@@ -105,6 +107,43 @@ class CourseController extends Controller
         return Inertia::render('courses/Courses', [
             'courses' => $courses,
             'progress' => $progress,
+        ]);
+    }
+
+    /**
+     * Enroll into a specific course
+     */
+    public function enroll(Course $course)
+    {
+        $auth = auth()->user();
+        $lessons = $course->lessons;
+        foreach ($lessons as $lesson) {
+            UserProgress::updateOrCreate([
+                'user_id' => $auth->id,
+                'lesson_id' => $lesson->id,
+                'status' => 'started',
+                'score' => 0
+            ]);
+        }
+
+        return Inertia::render('courses/Enroll', [
+            'enrolled' => true,
+            'lessons' => $lessons->count(),
+            'course' => [
+                'id' => $course->id,
+                'title' => $course->title
+            ],
+            'firstLesson' => $lessons->first(),
+        ]);
+    }
+
+    public function showCourse(Course $course)
+    {
+        // Load the relationships on the already-resolved $course model
+        $course->load('lessons', 'groups');
+
+        return Inertia::render('courses/ShowCourse', [
+            'course' => $course,
         ]);
     }
 }

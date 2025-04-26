@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Course;
 use App\Models\Lesson;
-use Illuminate\Http\Request;
 use App\Http\Requests\LessonStoreRequest;
 use App\Http\Requests\LessonUpdateRequest;
+use Inertia\Inertia;
 
 class LessonController extends Controller
 {
@@ -28,7 +29,7 @@ class LessonController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(App\Http\Requests\LessonStoreRequest $request)
+    public function store(LessonStoreRequest $request)
     {
         //
     }
@@ -38,7 +39,9 @@ class LessonController extends Controller
      */
     public function show(Lesson $lesson)
     {
-        //
+        return Inertia::render('lessons/Show', [
+            'lesson' => $lesson
+        ]);
     }
 
     /**
@@ -52,7 +55,7 @@ class LessonController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(App\Http\Requests\LessonUpdateRequest $request, Lesson $lesson)
+    public function update(LessonUpdateRequest $request, Lesson $lesson)
     {
         //
     }
@@ -63,5 +66,14 @@ class LessonController extends Controller
     public function destroy(Lesson $lesson)
     {
         //
+    }
+
+    public function lessons(Course $course)
+    {
+        $lessons = $course->lessons;
+
+        return Inertia::render('lessons/Lessons', [
+            'lessons' => $lessons
+        ]);
     }
 }
