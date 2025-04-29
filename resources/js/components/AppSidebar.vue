@@ -17,7 +17,7 @@ const mainNavItems: NavItem[] = [
     {
         title: 'Groups',
         href: '/groups',
-        icon: Users
+        icon: Users,
     },
     {
         title: 'Courses',

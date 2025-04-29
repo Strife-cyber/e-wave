@@ -542,7 +542,7 @@ onMounted(() => {
 
                                 <div v-else class="space-y-3">
                                     <div
-                                        v-for="(group, index) in groups"
+                                        v-for="(group, index) in groups.slice(0, 5)"
                                         :key="group.id"
                                         class="animate-fadeIn"
                                         :style="`animation-delay: ${0.3 + index * 0.1}s`"

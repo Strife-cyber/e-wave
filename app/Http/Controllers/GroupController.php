@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Group;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\GroupStoreRequest;
 use App\Http\Requests\GroupUpdateRequest;
+use Inertia\Inertia;
 
 class GroupController extends Controller
 {
@@ -14,7 +16,13 @@ class GroupController extends Controller
      */
     public function index()
     {
-        //
+        $auth = auth()->user();
+        $user = User::find($auth->id);
+        $groups = $user->groups;
+
+        return Inertia::render('groups/Index', [
+            'groups' => $groups,
+        ]);
     }
 
     /**
@@ -38,7 +46,16 @@ class GroupController extends Controller
      */
     public function show(Group $group)
     {
-        //
+        $auth = auth()->user();
+        $user = User::find($auth->id);
+        $members = $group->group_members;
+        $members->load(['user', 'latest_message']);
+
+        return Inertia::render('groups/Show', [
+            'groupMembers' => $members,
+            'group' => $group,
+            'currentUser' => $user
+        ]);
     }
 
     /**
