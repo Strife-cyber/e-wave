@@ -59,10 +59,10 @@ import LessonContent from '@/components/lesson/LessonContent.vue';
 import LessonHeader from '@/components/lesson/LessonHeader.vue';
 import LessonNavigation from '@/components/lesson/LessonNavigation.vue';
 import NotesPanel from '@/components/lesson/NotesPanel.vue';
-import { exportToMarkdown, exportToPdf } from '@/utils/utils';
-import { onMounted, onUnmounted, ref } from 'vue';
 import AppLayout from '@/layouts/AppLayout.vue';
 import type { BreadcrumbItem } from '@/types';
+import { exportToMarkdown, exportToPdf } from '@/utils/utils';
+import { onMounted, onUnmounted, ref } from 'vue';
 
 const props = defineProps({
     lesson: {
@@ -206,7 +206,7 @@ const breadcrumbs: BreadcrumbItem[] = [
     { title: 'Dashboard', href: '/dashboard' },
     { title: 'My Courses', href: '/user/courses' },
     { title: props.lesson.course_id, href: `/user/courses/${props.lesson.course_id}` },
-    { title: 'Lessons', href: `/user/courses/${props.lesson.course}/lessons` },
-    { title: props.lesson.id, href: `/lessons/${props.lesson.id}` }
+    { title: 'Lessons', href: `/user/courses/${props.lesson.course_id}/lessons` },
+    { title: props.lesson.id, href: `/lessons/${props.lesson.id}` },
 ];
 </script>

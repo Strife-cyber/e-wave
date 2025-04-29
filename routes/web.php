@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ContributionController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LessonController;
@@ -15,6 +16,7 @@ Route::get('/', function () {
 Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::resource('/contributions', ContributionController::class);
 
     // Courses Routes
     Route::prefix('courses')->name('courses.')->group(function () {
