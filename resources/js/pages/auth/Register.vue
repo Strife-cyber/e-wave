@@ -6,7 +6,9 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import AuthBase from '@/layouts/AuthLayout.vue';
 import { Head, useForm } from '@inertiajs/vue3';
+import { signInWithEmailAndPassword, GoogleAuthProvider } from 'firebase/auth';
 import { BookOpen, CheckCircle, GraduationCap, LoaderCircle, Lock, Mail, User } from 'lucide-vue-next';
+import { auth } from '@/firebase';
 
 const form = useForm({
     name: '',
@@ -15,11 +17,29 @@ const form = useForm({
     password_confirmation: '',
 });
 
+const provider = new GoogleAuthProvider();
+
 const submit = () => {
-    form.post(route('register'), {
-        onFinish: () => form.reset('password', 'password_confirmation'),
-    });
+    signInWithEmailAndPassword(auth, form.email, form.password)
+        .then(() => {
+            form.post(route('register'), {
+                onFinish: () => form.reset('password', 'password_confirmation'),
+            });
+        })
+        .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            console.log(`${errorCode}: ${errorMessage}`);
+        })
 };
+
+const googleSubmit = () => {
+    auth.useDeviceLanguage();
+
+    provider.setCustomParameters({
+        'login_hint': 'user@example.com'
+    });
+}
 </script>
 
 <template>
