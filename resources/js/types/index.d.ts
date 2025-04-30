@@ -70,4 +70,23 @@ export interface Course {
     groups: Group[];
 }
 
+export interface Message {
+    id: string;
+    text: string;
+    user: User;
+    timestamp: string;
+    status: 'sending' | 'sent' | 'delivered' | 'read';
+    attachments?: Array<{
+        type: string;
+        url: string;
+        name: string;
+        size?: number;
+    }>;
+    reactions?: Array<{
+        emoji: string;
+        users: User[];
+    }>;
+}
+
+
 export type BreadcrumbItemType = BreadcrumbItem;

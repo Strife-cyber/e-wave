@@ -142,7 +142,7 @@ onUnmounted(() => {
             <div v-for="(file, index) in attachments" :key="index" class="group relative">
                 <!-- Image preview -->
                 <div v-if="file.type.startsWith('image/')" class="h-16 w-16 overflow-hidden rounded-md bg-gray-100 dark:bg-gray-800">
-                    <img :src="URL.createObjectURL(file)" class="h-full w-full object-cover" />
+                    <!--<img :src="URL.createObjectURL(file)" class="h-full w-full object-cover" />-->
                 </div>
 
                 <!-- Audio preview -->

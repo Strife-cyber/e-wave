@@ -1,32 +1,14 @@
 <script setup lang="ts">
 import createMessagingService from '@/services/messaging-service';
-import { User } from '@/types';
+import { User, Message } from '@/types';
 import { computed, onMounted, onUnmounted, ref, watch } from 'vue';
 import MessageHeader from './MessageHeader.vue';
 import MessageInput from './MessageInput.vue';
 import MessageList from './MessageList.vue';
 import ScrollToBottomButton from './ScrollToBottomButton.vue';
 
-interface Message {
-    id: string;
-    text: string;
-    user: User;
-    timestamp: string;
-    status: 'sending' | 'sent' | 'delivered' | 'read';
-    attachments?: Array<{
-        type: string;
-        url: string;
-        name: string;
-        size?: number;
-    }>;
-    reactions?: Array<{
-        emoji: string;
-        users: User[];
-    }>;
-}
-
 const props = defineProps<{
-    groupId: string;
+    groupId: number;
     user: User;
 }>();
 
@@ -56,14 +38,14 @@ const filteredMessages = computed(() => {
 });
 
 const hasUnreadMessages = computed(() => {
-    return messages.value.some((message) => message.user !== props.user.id && message.status !== 'read');
+    return messages.value.some((message) => message.user !== props.user && message.status !== 'read');
 });
 
 // Methods
 const sendMessage = async (text: string, attachments: File[]) => {
     try {
         // Create a temporary message with 'sending' status
-        const tempMessage: Message = {
+        const message: Message = {
             id: `temp-${Date.now()}`,
             text: text.trim(),
             user: props.user,
@@ -80,11 +62,13 @@ const sendMessage = async (text: string, attachments: File[]) => {
                     : undefined,
         };
 
-        messages.value.push(tempMessage);
+        console.log(message)
+
+        messages.value.push(message);
         await scrollToBottom();
 
         // Send the actual message
-        await messagingService.sendMessage(props.user, text, attachments);
+        await messagingService.sendMessage(message);
     } catch (e) {
         console.error('Error sending message: ', e);
     }
@@ -203,7 +187,7 @@ onMounted(async () => {
         });
 
         // Mark messages as read
-        messagingService.markMessagesAsRead();
+        await messagingService.markMessagesAsRead();
 
         // Initial scroll to bottom
         await scrollToBottom(true);

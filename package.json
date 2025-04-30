@@ -36,6 +36,7 @@
         "dompurify": "^3.2.5",
         "firebase": "^11.6.1",
         "html2canvas": "^1.4.1",
+        "jest": "^29.7.0",
         "jspdf": "^3.0.1",
         "laravel-vite-plugin": "^1.0",
         "lucide": "^0.468.0",

@@ -1,25 +1,7 @@
 // src/services/MessagingService.ts
 import { database } from '@/firebase';
-import { ref as dbRef, get, orderByChild, push, query, update, onChildAdded } from 'firebase/database';
-import { User } from '@/types';
-
-export interface Message {
-    id: string;
-    text: string;
-    user: User;
-    timestamp: string;
-    status: 'sending' | 'sent' | 'delivered' | 'read';
-    attachments?: Array<{
-        type: string;
-        url: string;
-        name: string;
-        size?: number;
-    }>;
-    reactions?: Array<{
-        emoji: string;
-        users: User[];
-    }>;
-}
+import { Message, User } from '@/types';
+import { get, onChildAdded, orderByChild, push, query, ref as dbRef, update } from 'firebase/database';
 
 class MessagingService {
     private readonly messagesRef;
@@ -32,41 +14,22 @@ class MessagingService {
     }
 
     // Send a message
-    async sendMessage(user: User, text: string, attachments: File[] = []): Promise<string> {
-        if (!user || !text) {
-            throw new Error('User and text are required');
+    async sendMessage(message: Message): Promise<void> {
+        if (!message) {
+            throw new Error('Message required');
         }
         try {
-            const messageData: Partial<Message> = {
-                text: text.trim(),
-                user,
-                timestamp: new Date().toISOString(),
-                status: 'sent',
-            };
-
-            if (attachments.length > 0) {
-                // In a real implementation, you'd upload files to storage (e.g., Firebase Storage)
-                // and get download URLs. This is a simplified version.
-                messageData.attachments = attachments.map((file) => ({
-                    type: file.type,
-                    url: URL.createObjectURL(file), // Temporary URL for demo
-                    name: file.name,
-                    size: file.size,
-                }));
-            }
-
-            const newMessageRef = await push(this.messagesRef, messageData);
-            return newMessageRef.key || '';
+            console.log(message);
         } catch (error) {
-            const message = error instanceof Error ? error.message : String(error);
-            throw new Error(`Failed to send message: ${message}`);
+            const errorMessage = error instanceof Error ? error.message : String(error);
+            throw new Error(`Failed to send message: ${errorMessage}`);
         }
     }
 
     // Listen for new messages in real-time
     listenToMessages(callback: (message: Message) => void): () => void {
         const messagesQuery = query(this.messagesRef, orderByChild('timestamp'));
-        const unsubscribe = onChildAdded(
+        return onChildAdded(
             messagesQuery,
             (snapshot) => {
                 const data = snapshot.val();
@@ -82,9 +45,8 @@ class MessagingService {
             },
             (error) => {
                 console.error('Failed to listen to messages:', error);
-            }
+            },
         );
-        return unsubscribe;
     }
 
     // Fetch all messages (for initial load)
@@ -174,7 +136,7 @@ class MessagingService {
 
     // Listen for typing indicators
     listenToTypingIndicators(callback: (users: User[]) => void): () => void {
-        const unsubscribe = onChildAdded(
+        return onChildAdded(
             this.typingRef,
             (snapshot) => {
                 const users: User[] = [];
@@ -186,9 +148,8 @@ class MessagingService {
             },
             (error) => {
                 console.error('Failed to listen to typing indicators:', error);
-            }
+            },
         );
-        return unsubscribe;
     }
 
     // Add reaction to a message
