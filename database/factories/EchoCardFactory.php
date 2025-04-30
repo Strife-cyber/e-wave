@@ -20,7 +20,7 @@ class EchoCardFactory extends Factory
     public function definition(): array
     {
         return [
-            'content' => $this->faker->sentence() . ' A) ' . $this->faker->word() . ' B) ' . $this->faker->word(),
+            'content' => $this->faker->sentence().' A) '.$this->faker->word().' B) '.$this->faker->word(),
             'source_type' => $this->faker->randomElement(['chat', 'whiteboard', 'question']),
             'source_content' => $this->faker->sentence(),
             'lesson_id' => Lesson::factory(),

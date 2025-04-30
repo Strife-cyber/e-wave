@@ -21,7 +21,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * (typically a teacher). Courses can have associated groups for collaboration and are a core part of
  * the learning infrastructure.
  *
- * @package App\Models
  *
  * @property int $id The unique identifier for the courses.
  * @property string $title The title of the courses.
@@ -31,7 +30,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property int $created_by The ID of the user who created the courses.
  * @property Carbon $created_at Timestamp when the courses was created.
  * @property Carbon $updated_at Timestamp when the courses was last updated.
- *
  * @property User $user The user who created this courses.
  * @property Collection|Lesson[] $lessons Lessons that belong to this courses.
  * @property Collection|Group[] $groups Groups associated with this courses for collaboration.
@@ -69,7 +67,7 @@ class Course extends Model
      */
     protected $casts = [
         'bright' => 'bool',
-        'created_by' => 'int'
+        'created_by' => 'int',
     ];
 
     /**
@@ -84,7 +82,7 @@ class Course extends Model
         'description',
         'text',
         'bright',
-        'created_by'
+        'created_by',
     ];
 
     /**

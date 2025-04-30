@@ -3,9 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\UserProgress;
-use Illuminate\Http\Request;
-use App\Http\Requests\UserProgressStoreRequest;
-use App\Http\Requests\UserProgressUpdateRequest;
 
 class UserProgressController extends Controller
 {

@@ -8,9 +8,9 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
@@ -21,7 +21,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * Collaboration sessions enable real-time interactions such as chat, whiteboards, or video calls,
  * and track the start and end times of these sessions. Collaboration events link users to these sessions.
  *
- * @package App\Models
  *
  * @property int $id The unique identifier for the collaboration session.
  * @property string $type The type of collaboration (e.g., 'chat', 'whiteboard', 'video').
@@ -30,7 +29,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property Carbon|null $ended_at Timestamp when the collaboration session ended, if applicable.
  * @property Carbon $created_at Timestamp when the collaboration record was created.
  * @property Carbon $updated_at Timestamp when the collaboration record was last updated.
- *
  * @property Group $group The group associated with this collaboration session.
  * @property Collection|CollaborationEvent[] $collaboration_events Events linking users to this collaboration session.
  *
@@ -66,7 +64,7 @@ class Collaboration extends Model
     protected $casts = [
         'group_id' => 'int',
         'started_at' => 'datetime',
-        'ended_at' => 'datetime'
+        'ended_at' => 'datetime',
     ];
 
     /**
@@ -80,7 +78,7 @@ class Collaboration extends Model
         'type',
         'group_id',
         'started_at',
-        'ended_at'
+        'ended_at',
     ];
 
     /**

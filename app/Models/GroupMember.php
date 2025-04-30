@@ -21,7 +21,6 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * This model tracks when a user joins a group, enabling collaboration features like group chats,
  * whiteboards, and video calls within the group.
  *
- * @package App\Models
  *
  * @property int $id The unique identifier for the group member record.
  * @property int $group_id The ID of the group the user is a member of.
@@ -29,7 +28,6 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @property Carbon $joined_at Timestamp when the user joined the group.
  * @property Carbon $created_at Timestamp when the group member record was created.
  * @property Carbon $updated_at Timestamp when the group member record was last updated.
- *
  * @property Group $group The group associated with this membership.
  * @property User $user The user associated with this membership.
  *
@@ -64,7 +62,7 @@ class GroupMember extends Model
     protected $casts = [
         'group_id' => 'int',
         'user_id' => 'int',
-        'joined_at' => 'datetime'
+        'joined_at' => 'datetime',
     ];
 
     /**
@@ -77,7 +75,7 @@ class GroupMember extends Model
     protected $fillable = [
         'group_id',
         'user_id',
-        'joined_at'
+        'joined_at',
     ];
 
     /**
@@ -107,13 +105,13 @@ class GroupMember extends Model
     }
 
     /**
-    * Get the messages associated with this membership.
-    *
-    * This defines a one-to-many relationship between the GroupMember and GroupMessage models.
-    * Each group member record is associated with many group messages.
-    *
-    * @return HasMany The relationship to the Group Message model.
-    */
+     * Get the messages associated with this membership.
+     *
+     * This defines a one-to-many relationship between the GroupMember and GroupMessage models.
+     * Each group member record is associated with many group messages.
+     *
+     * @return HasMany The relationship to the Group Message model.
+     */
     public function group_messages(): HasMany
     {
         return $this->hasMany(GroupMessage::class);

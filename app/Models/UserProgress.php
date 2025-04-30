@@ -19,7 +19,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * the status, score, and completion details of a user's interaction with a lesson, enabling features
  * like adaptive learning paths and progress tracking.
  *
- * @package App\Models
  *
  * @property int $id The unique identifier for the user progress record.
  * @property int $user_id The ID of the user associated with this progress record.
@@ -29,7 +28,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property Carbon|null $completed_at The timestamp when the lesson was completed, if applicable.
  * @property Carbon $created_at Timestamp when the progress record was created.
  * @property Carbon $updated_at Timestamp when the progress record was last updated.
- *
  * @property User $user The user associated with this progress record.
  * @property Lesson $lesson The lesson associated with this progress record.
  *
@@ -67,7 +65,7 @@ class UserProgress extends Model
         'user_id' => 'int',
         'lesson_id' => 'int',
         'score' => 'int',
-        'completed_at' => 'datetime'
+        'completed_at' => 'datetime',
     ];
 
     /**
@@ -82,7 +80,7 @@ class UserProgress extends Model
         'lesson_id',
         'status',
         'score',
-        'completed_at'
+        'completed_at',
     ];
 
     /**

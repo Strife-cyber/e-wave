@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CourseStoreRequest;
+use App\Http\Requests\CourseUpdateRequest;
 use App\Models\Course;
 use App\Models\User;
 use App\Models\UserProgress;
 use Illuminate\Http\Request;
-use App\Http\Requests\CourseStoreRequest;
-use App\Http\Requests\CourseUpdateRequest;
 use Inertia\Inertia;
-use function Pest\Laravel\json;
 
 class CourseController extends Controller
 {
@@ -23,8 +22,8 @@ class CourseController extends Controller
         $search = $request->input('search');
 
         if ($search) {
-            $courses->where('title', 'like', '%' . $search . '%')
-                ->orWhere('description', 'like', '%' . $search . '%');
+            $courses->where('title', 'like', '%'.$search.'%')
+                ->orWhere('description', 'like', '%'.$search.'%');
         }
 
         $courses = $courses->paginate(12)->withQueryString();
@@ -122,7 +121,7 @@ class CourseController extends Controller
                 'user_id' => $auth->id,
                 'lesson_id' => $lesson->id,
                 'status' => 'started',
-                'score' => 0
+                'score' => 0,
             ]);
         }
 
@@ -131,7 +130,7 @@ class CourseController extends Controller
             'lessons' => $lessons->count(),
             'course' => [
                 'id' => $course->id,
-                'title' => $course->title
+                'title' => $course->title,
             ],
             'firstLesson' => $lessons->first(),
         ]);

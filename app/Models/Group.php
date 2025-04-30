@@ -22,7 +22,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * They support real-time collaboration features like chat, whiteboards, and video calls through
  * related group messages and collaboration records.
  *
- * @package App\Models
  *
  * @property int $id The unique identifier for the group.
  * @property string $name The name of the group.
@@ -31,7 +30,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property Carbon $created_at Timestamp when the group was created.
  * @property Carbon $updated_at Timestamp when the group was last updated.
  * @property bool $bright Indicates if the group is marked as "bright" (e.g., highlighted or active).
- *
  * @property Course $courses The courses this group is associated with.
  * @property User $user The user who created this group.
  * @property Collection|GroupMember[] $group_members Members of this group.
@@ -70,7 +68,7 @@ class Group extends Model
     protected $casts = [
         'course_id' => 'int',
         'created_by' => 'int',
-        'bright' => 'bool'
+        'bright' => 'bool',
     ];
 
     /**
@@ -84,7 +82,7 @@ class Group extends Model
         'name',
         'course_id',
         'created_by',
-        'bright'
+        'bright',
     ];
 
     /**

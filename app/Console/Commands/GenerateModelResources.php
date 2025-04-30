@@ -3,8 +3,8 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\File;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\File;
 use Symfony\Component\Finder\SplFileInfo;
 
 class GenerateModelResources extends Command
@@ -41,8 +41,9 @@ class GenerateModelResources extends Command
 
             $modelClass = $this->getModelClass($file);
 
-            if (!$this->isValidModel($modelClass)) {
+            if (! $this->isValidModel($modelClass)) {
                 $this->error("Skipping $modelName: Not a valid Eloquent model.");
+
                 continue;
             }
 
@@ -93,12 +94,14 @@ class GenerateModelResources extends Command
         $updateRequest = $this->getRequestClass($relativePath, $modelName, 'Update');
 
         $controllerPath = app_path(
-            "Http/Controllers/" .
-            ($relativePath ? "$relativePath/" : "") .
+            'Http/Controllers/'.
+            ($relativePath ? "$relativePath/" : '').
             "{$modelName}Controller.php"
         );
 
-        if (!File::exists($controllerPath)) return;
+        if (! File::exists($controllerPath)) {
+            return;
+        }
 
         $content = File::get($controllerPath);
 
@@ -112,10 +115,10 @@ class GenerateModelResources extends Command
         // Update method parameters
         $content = preg_replace([
             '/public function store\(Request \$request\)/',
-            '/public function update\(Request \$request/'
+            '/public function update\(Request \$request/',
         ], [
             "public function store($storeRequest \$request)",
-            "public function update($updateRequest \$request"
+            "public function update($updateRequest \$request",
         ], $content);
 
         File::put($controllerPath, $content);
@@ -155,7 +158,9 @@ class GenerateModelResources extends Command
     {
         $seederPath = database_path('seeders/'.str_replace('/', '/', $seederName).'.php');
 
-        if (!File::exists($seederPath)) return;
+        if (! File::exists($seederPath)) {
+            return;
+        }
 
         $content = File::get($seederPath);
         $newContent = preg_replace(
@@ -233,6 +238,7 @@ class GenerateModelResources extends Command
     protected function getRequestClass(?string $path, string $model, string $type): string
     {
         $namespace = $path ? '\\'.str_replace('/', '\\', $path) : '';
+
         return "App\\Http\\Requests$namespace\\$model{$type}Request";
     }
 }

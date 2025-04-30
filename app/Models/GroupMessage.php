@@ -19,7 +19,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * exchanged during group collaboration, including the content, sender, and timestamp. It is part
  * of the real-time collaboration suite, enabling communication among group members.
  *
- * @package App\Models
  *
  * @property int $id The unique identifier for the group message.
  * @property int $group_id The ID of the group this message belongs to.
@@ -28,7 +27,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property Carbon $sent_at Timestamp when the message was sent.
  * @property Carbon $created_at Timestamp when the message record was created.
  * @property Carbon $updated_at Timestamp when the message record was last updated.
- *
  * @property Group $group The group this message belongs to.
  * @property User $user The user who sent this message.
  *
@@ -64,7 +62,7 @@ class GroupMessage extends Model
     protected $casts = [
         'group_id' => 'int',
         'user_id' => 'int',
-        'sent_at' => 'datetime'
+        'sent_at' => 'datetime',
     ];
 
     /**
@@ -78,7 +76,7 @@ class GroupMessage extends Model
         'group_id',
         'user_id',
         'content',
-        'sent_at'
+        'sent_at',
     ];
 
     /**

@@ -19,7 +19,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * Rewards track points earned by users and optionally link to a badge when a milestone is reached.
  * This model helps motivate users by rewarding their engagement and progress.
  *
- * @package App\Models
  *
  * @property int $id The unique identifier for the reward record.
  * @property int $user_id The ID of the user who earned this reward.
@@ -27,7 +26,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property int|null $badge_id The ID of the badge associated with this reward, if any.
  * @property Carbon $created_at Timestamp when the reward was created.
  * @property Carbon $updated_at Timestamp when the reward was last updated.
- *
  * @property User $user The user who earned this reward.
  * @property Badge|null $badge The badge associated with this reward, if applicable.
  *
@@ -62,7 +60,7 @@ class Reward extends Model
     protected $casts = [
         'user_id' => 'int',
         'points' => 'int',
-        'badge_id' => 'int'
+        'badge_id' => 'int',
     ];
 
     /**
@@ -75,7 +73,7 @@ class Reward extends Model
     protected $fillable = [
         'user_id',
         'points',
-        'badge_id'
+        'badge_id',
     ];
 
     /**

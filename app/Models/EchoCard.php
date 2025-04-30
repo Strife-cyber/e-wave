@@ -19,7 +19,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * student discussions, questions, or ideas from chats or whiteboards into mini-lessons or flashcards.
  * Echo cards are associated with a lesson and created by a user, enabling community-driven learning content.
  *
- * @package App\Models
  *
  * @property int $id The unique identifier for the echo card.
  * @property string $content The content of the echo card (e.g., a quiz question like "What pulls objects down? A) Gravity B) Magic").
@@ -29,7 +28,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property int $created_by The ID of the user who created the echo card.
  * @property Carbon $created_at Timestamp when the echo card was created.
  * @property Carbon $updated_at Timestamp when the echo card was last updated.
- *
  * @property Lesson $lesson The lesson this echo card is associated with.
  * @property User $user The user who created this echo card.
  *
@@ -66,7 +64,7 @@ class EchoCard extends Model
      */
     protected $casts = [
         'lesson_id' => 'int',
-        'created_by' => 'int'
+        'created_by' => 'int',
     ];
 
     /**
@@ -81,7 +79,7 @@ class EchoCard extends Model
         'source_type',
         'source_content',
         'lesson_id',
-        'created_by'
+        'created_by',
     ];
 
     /**

@@ -18,7 +18,7 @@ class BadgeFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->word() . ' Badge',
+            'name' => $this->faker->word().' Badge',
             'image_url' => $this->faker->imageUrl(50, 50, 'badge'),
             'points_required' => $this->faker->numberBetween(50, 500),
         ];

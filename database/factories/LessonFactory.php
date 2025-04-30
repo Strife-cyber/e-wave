@@ -21,7 +21,7 @@ class LessonFactory extends Factory
             'type' => $this->faker->randomElement(['video', 'quiz', 'game', 'html']),
             'html' => '', // you can later override this with a state()
             'content' => $this->faker->paragraphs(2, true),
-            'order_no' => $this->faker->numberBetween(1, 10)
+            'order_no' => $this->faker->numberBetween(1, 10),
         ];
     }
 

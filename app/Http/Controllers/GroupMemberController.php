@@ -3,9 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\GroupMember;
-use Illuminate\Http\Request;
-use App\Http\Requests\GroupMemberStoreRequest;
-use App\Http\Requests\GroupMemberUpdateRequest;
 
 class GroupMemberController extends Controller
 {

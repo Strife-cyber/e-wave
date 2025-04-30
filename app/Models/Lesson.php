@@ -21,7 +21,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * (e.g., video, quiz, game). Lessons are the core learning units that users interact with, and they
  * can have associated progress tracking and echo cards generated from discussions.
  *
- * @package App\Models
  *
  * @property int $id The unique identifier for the lesson.
  * @property int $course_id The ID of the courses this lesson belongs to.
@@ -32,7 +31,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property Carbon $created_at Timestamp when the lesson was created.
  * @property Carbon $updated_at Timestamp when the lesson was last updated.
  * @property bool $bright Indicates if the lesson is marked as "bright" (e.g., highlighted or active).
- *
  * @property Course $courses The courses this lesson belongs to.
  * @property Collection|UserProgress[] $user_progresses Progress records of users for this lesson.
  * @property Collection|EchoCard[] $echo_cards Echo cards generated from discussions related to this lesson.
@@ -71,7 +69,7 @@ class Lesson extends Model
     protected $casts = [
         'course_id' => 'int',
         'order_no' => 'int',
-        'bright' => 'bool'
+        'bright' => 'bool',
     ];
 
     /**
@@ -87,7 +85,7 @@ class Lesson extends Model
         'type',
         'content',
         'order_no',
-        'bright'
+        'bright',
     ];
 
     /**

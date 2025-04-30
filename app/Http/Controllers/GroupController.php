@@ -4,9 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Group;
 use App\Models\User;
-use Illuminate\Http\Request;
-use App\Http\Requests\GroupStoreRequest;
-use App\Http\Requests\GroupUpdateRequest;
 use Inertia\Inertia;
 
 class GroupController extends Controller
@@ -54,7 +51,7 @@ class GroupController extends Controller
         return Inertia::render('groups/Show', [
             'groupMembers' => $members,
             'group' => $group,
-            'currentUser' => $user
+            'currentUser' => $user,
         ]);
     }
 

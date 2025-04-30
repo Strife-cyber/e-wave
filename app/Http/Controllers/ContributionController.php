@@ -24,7 +24,7 @@ class ContributionController extends Controller
 
         // Apply course filters
         if (request()->has('course_search')) {
-            $coursesQuery->where('title', 'like', '%' . request('course_search') . '%');
+            $coursesQuery->where('title', 'like', '%'.request('course_search').'%');
         }
 
         if (request()->has('course_bright')) {
@@ -73,7 +73,7 @@ class ContributionController extends Controller
         }
 
         if (request()->has('event_date_to')) {
-            $eventsQuery->where('joined_at', '<=', request('event_date_to') . ' 23:59:59');
+            $eventsQuery->where('joined_at', '<=', request('event_date_to').' 23:59:59');
         }
 
         $events = $eventsQuery->paginate(5, ['*'], 'events_page');

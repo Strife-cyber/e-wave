@@ -3,9 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\GroupMessage;
-use Illuminate\Http\Request;
-use App\Http\Requests\GroupMessageStoreRequest;
-use App\Http\Requests\GroupMessageUpdateRequest;
 
 class GroupMessageController extends Controller
 {

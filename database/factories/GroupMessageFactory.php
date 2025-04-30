@@ -2,8 +2,8 @@
 
 namespace Database\Factories;
 
-use App\Models\GroupMessage;
 use App\Models\Group;
+use App\Models\GroupMessage;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -38,7 +38,7 @@ class GroupMessageFactory extends Factory
             'group_id' => Group::factory(),
             'user_id' => User::factory(),
             'content' => $this->faker->sentence(),
-            'sent_at' => $sentAt
+            'sent_at' => $sentAt,
         ];
     }
 }

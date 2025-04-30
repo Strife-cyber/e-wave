@@ -14,9 +14,6 @@ class AttachmentController extends Controller
 {
     /**
      * Display a listing of the user's attachments.
-     *
-     * @param Request $request
-     * @return JsonResponse
      */
     public function index(Request $request): JsonResponse
     {
@@ -34,6 +31,7 @@ class AttachmentController extends Controller
             return response()->json($attachments, Response::HTTP_OK);
         } catch (Throwable $e) {
             report($e);
+
             return response()->json([
                 'error' => 'Failed to retrieve attachments',
                 'message' => $e->getMessage(),
@@ -43,9 +41,6 @@ class AttachmentController extends Controller
 
     /**
      * Store a newly uploaded attachment.
-     *
-     * @param Request $request
-     * @return JsonResponse
      */
     public function store(Request $request): JsonResponse
     {
@@ -74,6 +69,7 @@ class AttachmentController extends Controller
             ], Response::HTTP_CREATED);
         } catch (Throwable $e) {
             report($e);
+
             return response()->json([
                 'error' => 'Upload failed',
                 'message' => $e->getMessage(),
@@ -83,10 +79,6 @@ class AttachmentController extends Controller
 
     /**
      * Display the specified attachment's details.
-     *
-     * @param Request $request
-     * @param Attachment $attachment
-     * @return JsonResponse
      */
     public function show(Request $request, Attachment $attachment): JsonResponse
     {
@@ -106,6 +98,7 @@ class AttachmentController extends Controller
             ], Response::HTTP_OK);
         } catch (Throwable $e) {
             report($e);
+
             return response()->json([
                 'error' => 'Failed to retrieve attachment',
                 'message' => $e->getMessage(),
@@ -115,10 +108,6 @@ class AttachmentController extends Controller
 
     /**
      * Download the specified attachment.
-     *
-     * @param Request $request
-     * @param Attachment $attachment
-     * @return BinaryFileResponse
      */
     public function download(Request $request, Attachment $attachment): BinaryFileResponse
     {
@@ -128,7 +117,7 @@ class AttachmentController extends Controller
             }
 
             $disk = Storage::disk(config('filesystems.default_private_disk', 'private'));
-            if (!$disk->exists($attachment->path)) {
+            if (! $disk->exists($attachment->path)) {
                 abort(Response::HTTP_NOT_FOUND, 'File not found');
             }
 
@@ -136,7 +125,7 @@ class AttachmentController extends Controller
                 $disk->path($attachment->path),
                 [
                     'Content-Type' => $attachment->mime_type,
-                    'Content-Disposition' => 'inline; filename="' . $attachment->original_name . '"',
+                    'Content-Disposition' => 'inline; filename="'.$attachment->original_name.'"',
                 ]
             );
         } catch (Throwable $e) {
@@ -147,10 +136,6 @@ class AttachmentController extends Controller
 
     /**
      * Remove the specified attachment and its file.
-     *
-     * @param Request $request
-     * @param Attachment $attachment
-     * @return JsonResponse
      */
     public function destroy(Request $request, Attachment $attachment): JsonResponse
     {
@@ -173,6 +158,7 @@ class AttachmentController extends Controller
             ], Response::HTTP_OK);
         } catch (Throwable $e) {
             report($e);
+
             return response()->json([
                 'error' => 'Deletion failed',
                 'message' => $e->getMessage(),

@@ -8,9 +8,9 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
@@ -20,7 +20,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * Badges are awarded to users when they reach specific point milestones, encouraging engagement
  * and motivation through rewards.
  *
- * @package App\Models
  *
  * @property int $id The unique identifier for the badge.
  * @property string $name The name of the badge (e.g., "Explorer Badge").
@@ -28,7 +27,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property int $points_required The number of points a user must earn to receive this badge.
  * @property Carbon $created_at Timestamp when the badge was created.
  * @property Carbon $updated_at Timestamp when the badge was last updated.
- *
  * @property Collection|Reward[] $rewards The rewards associated with this badge, linking it to users.
  *
  * @method static Builder|Badge newModelQuery()
@@ -61,7 +59,7 @@ class Badge extends Model
      * @var array<string, string>
      */
     protected $casts = [
-        'points_required' => 'int'
+        'points_required' => 'int',
     ];
 
     /**
@@ -74,7 +72,7 @@ class Badge extends Model
     protected $fillable = [
         'name',
         'image_url',
-        'points_required'
+        'points_required',
     ];
 
     /**

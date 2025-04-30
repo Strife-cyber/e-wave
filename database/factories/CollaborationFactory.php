@@ -38,7 +38,7 @@ class CollaborationFactory extends Factory
             'type' => $this->faker->randomElement(['chat', 'whiteboard', 'video']),
             'group_id' => Group::factory(),
             'started_at' => $startedAt,
-            'ended_at' => $endedAt
+            'ended_at' => $endedAt,
         ];
     }
 }

@@ -3,9 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Collaboration;
-use Illuminate\Http\Request;
-use App\Http\Requests\CollaborationStoreRequest;
-use App\Http\Requests\CollaborationUpdateRequest;
 
 class CollaborationController extends Controller
 {

@@ -3,9 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\EchoCard;
-use Illuminate\Http\Request;
-use App\Http\Requests\EchoCardStoreRequest;
-use App\Http\Requests\EchoCardUpdateRequest;
 
 class EchoCardController extends Controller
 {

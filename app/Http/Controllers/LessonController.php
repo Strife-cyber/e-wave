@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Course;
-use App\Models\Lesson;
 use App\Http\Requests\LessonStoreRequest;
 use App\Http\Requests\LessonUpdateRequest;
+use App\Models\Course;
+use App\Models\Lesson;
 use Inertia\Inertia;
 
 class LessonController extends Controller
@@ -40,7 +40,7 @@ class LessonController extends Controller
     public function show(Lesson $lesson)
     {
         return Inertia::render('lessons/Show', [
-            'lesson' => $lesson
+            'lesson' => $lesson,
         ]);
     }
 
@@ -73,7 +73,7 @@ class LessonController extends Controller
         $lessons = $course->lessons;
 
         return Inertia::render('lessons/Lessons', [
-            'lessons' => $lessons
+            'lessons' => $lessons,
         ]);
     }
 }

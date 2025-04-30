@@ -3,9 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\CollaborationEvent;
-use Illuminate\Http\Request;
-use App\Http\Requests\CollaborationEventStoreRequest;
-use App\Http\Requests\CollaborationEventUpdateRequest;
 
 class CollaborationEventController extends Controller
 {

@@ -25,7 +25,7 @@ class UserProgressFactory extends Factory
             'user_id' => User::factory(),
             'lesson_id' => Lesson::factory(),
             'status' => fake()->randomElement(['started', 'completed', 'failed']),
-            'score' => fake()->numberBetween(0, 100)
+            'score' => fake()->numberBetween(0, 100),
         ];
     }
 }

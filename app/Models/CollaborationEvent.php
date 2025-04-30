@@ -19,7 +19,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * in a collaboration session (e.g., chat, whiteboard, or video call). This model records when
  * a user joins and leaves a session, enabling detailed tracking of engagement within groups.
  *
- * @package App\Models
  *
  * @property int $id The unique identifier for the collaboration event.
  * @property int $collaboration_id The ID of the collaboration session this event is associated with.
@@ -28,7 +27,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property Carbon|null $left_at Timestamp when the user left the collaboration session, if applicable.
  * @property Carbon $created_at Timestamp when the collaboration event was created.
  * @property Carbon $updated_at Timestamp when the collaboration event was last updated.
- *
  * @property Collaboration $collaboration The collaboration session associated with this event.
  * @property User $user The user who participated in this collaboration event.
  *
@@ -65,7 +63,7 @@ class CollaborationEvent extends Model
         'collaboration_id' => 'int',
         'user_id' => 'int',
         'joined_at' => 'datetime',
-        'left_at' => 'datetime'
+        'left_at' => 'datetime',
     ];
 
     /**
@@ -79,7 +77,7 @@ class CollaborationEvent extends Model
         'collaboration_id',
         'user_id',
         'joined_at',
-        'left_at'
+        'left_at',
     ];
 
     /**

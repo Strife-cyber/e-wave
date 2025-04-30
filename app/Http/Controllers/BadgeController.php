@@ -3,9 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Badge;
-use Illuminate\Http\Request;
-use App\Http\Requests\BadgeStoreRequest;
-use App\Http\Requests\BadgeUpdateRequest;
 
 class BadgeController extends Controller
 {

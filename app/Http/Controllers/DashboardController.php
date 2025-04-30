@@ -23,7 +23,7 @@ class DashboardController extends Controller
         $auth_user = auth()->user();
 
         // If no user is authenticated, return default/empty data
-        if (!$auth_user) {
+        if (! $auth_user) {
             return Inertia::render('Dashboard', [
                 'user' => null,
                 'progress' => [],

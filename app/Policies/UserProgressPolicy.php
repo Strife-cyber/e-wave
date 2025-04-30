@@ -4,7 +4,6 @@ namespace App\Policies;
 
 use App\Models\User;
 use App\Models\UserProgress;
-use Illuminate\Auth\Access\Response;
 
 class UserProgressPolicy
 {

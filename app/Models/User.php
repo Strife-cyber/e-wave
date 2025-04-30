@@ -8,11 +8,11 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
 /**
  * Class User
@@ -21,7 +21,6 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * This model handles user authentication, profile information, and relationships with other entities
  * such as courses, progress, groups, rewards, echo cards, and collaboration events.
  *
- * @package App\Models
  *
  * @property int $id The unique identifier for the user.
  * @property string $name The full name of the user.
@@ -30,7 +29,6 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property string $role The role of the user (e.g., student, teacher, admin).
  * @property Carbon $created_at Timestamp when the user was created.
  * @property Carbon $updated_at Timestamp when the user was last updated.
- *
  * @property Collection|Course[] $courses Courses created by the user (for teachers).
  * @property Collection|UserProgress[] $user_progresses The user's progress on lessons.
  * @property Collection|Group[] $groups Groups created by the user.
@@ -70,7 +68,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $hidden = [
-        'password'
+        'password',
     ];
 
     /**
@@ -83,7 +81,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'role'
+        'role',
     ];
 
     /**

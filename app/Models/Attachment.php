@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\URL;
  * @property mixed $mime_type
  * @property mixed $original_name
  * @property mixed $size
+ *
  * @method static create(array $array)
  * @method static findOrFail($id)
  * @method static where(string $string, $id)
@@ -25,7 +26,7 @@ class Attachment extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id', 'original_name', 'mime_type', 'path', 'size'
+        'user_id', 'original_name', 'mime_type', 'path', 'size',
     ];
 
     /**
@@ -40,7 +41,7 @@ class Attachment extends Model
     /**
      * Generate a temporary signed URL for downloading the attachment.
      *
-     * @param int $minutes Number of minutes until the URL expires. Default is 5.
+     * @param  int  $minutes  Number of minutes until the URL expires. Default is 5.
      * @return string The signed URL.
      */
     public function getSignedUrl(int $minutes = 5): string
@@ -54,8 +55,6 @@ class Attachment extends Model
 
     /**
      * Get the user that owns the attachment.
-     *
-     * @return BelongsTo
      */
     public function user(): BelongsTo
     {
