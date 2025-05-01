@@ -196,16 +196,6 @@ const breadcrumbs: BreadcrumbItem[] = [{ title: 'Dashboard', href: '/dashboard' 
                             <span class="groups-count text-3xl font-bold text-gray-800 dark:text-gray-100">{{ groups.length }}</span>
                             <span class="ml-2 text-sm text-gray-500 dark:text-gray-400">active</span>
                         </div>
-                        <button class="flex items-center text-sm font-medium text-purple-600 hover:text-purple-800">
-                            Join new group
-                            <svg class="ml-1 h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-                                <path
-                                    fill-rule="evenodd"
-                                    d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                                    clip-rule="evenodd"
-                                />
-                            </svg>
-                        </button>
                     </div>
                 </div>
 
@@ -267,7 +257,7 @@ const breadcrumbs: BreadcrumbItem[] = [{ title: 'Dashboard', href: '/dashboard' 
                     <div class="animate-fade-in rounded-xl bg-white shadow-md dark:bg-gray-800">
                         <div class="flex items-center justify-between border-b border-gray-200 px-6 py-5 dark:border-gray-700">
                             <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-200">Echo Cards</h3>
-                            <button class="flex items-center text-sm font-medium text-purple-600 hover:text-purple-800">
+                            <a href="/echo" class="flex items-center text-sm font-medium text-purple-600 hover:text-purple-800">
                                 Create new
                                 <svg class="ml-1 h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
                                     <path
@@ -276,7 +266,7 @@ const breadcrumbs: BreadcrumbItem[] = [{ title: 'Dashboard', href: '/dashboard' 
                                         clip-rule="evenodd"
                                     />
                                 </svg>
-                            </button>
+                            </a>
                         </div>
                         <div class="p-6">
                             <div v-if="echoCards.length === 0" class="py-4 text-center text-gray-500 dark:text-gray-400">
@@ -316,16 +306,6 @@ const breadcrumbs: BreadcrumbItem[] = [{ title: 'Dashboard', href: '/dashboard' 
                     <div class="animate-fade-in rounded-xl bg-white shadow-md dark:bg-gray-800">
                         <div class="flex items-center justify-between border-b border-gray-200 px-6 py-5 dark:border-gray-700">
                             <h3 class="text-lg font-semibold text-gray-700 dark:text-gray-200">Recent Messages</h3>
-                            <button class="flex items-center text-sm font-medium text-purple-600 hover:text-purple-800">
-                                View all
-                                <svg class="ml-1 h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-                                    <path
-                                        fill-rule="evenodd"
-                                        d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                                        clip-rule="evenodd"
-                                    />
-                                </svg>
-                            </button>
                         </div>
                         <div class="p-6">
                             <div v-if="groups.length === 0 || !hasMessages" class="py-4 text-center text-gray-500 dark:text-gray-400">

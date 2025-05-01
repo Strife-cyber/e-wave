@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\EchoCard;
+use Inertia\Inertia;
 
 class EchoCardController extends Controller
 {
@@ -11,7 +12,7 @@ class EchoCardController extends Controller
      */
     public function index()
     {
-        //
+        return Inertia::render('chamber/Index', []);
     }
 
     /**

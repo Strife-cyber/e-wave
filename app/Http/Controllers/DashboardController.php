@@ -5,9 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Badge;
 use App\Models\Course;
 use App\Models\EchoCard;
-use App\Models\User;
 use Inertia\Inertia;
 use Inertia\Response;
+use function Sodium\add;
 
 class DashboardController extends Controller
 {
@@ -55,8 +55,11 @@ class DashboardController extends Controller
 
         // Fetch groups with the latest message
         $groups = $user->group_members()
-            ->with('group')->with('latest_message')
-            ->get();
+            ->with('group')->get();
+
+        foreach ($user->groups as $group) {
+            $groups->add($group);
+        }
 
         // Fetch the latest 3 echo cards
         $echoCards = EchoCard::latest()->take(3)->get();

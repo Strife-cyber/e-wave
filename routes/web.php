@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AttachmentController;
 use App\Http\Controllers\ContributionController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\DashboardController;
@@ -19,7 +20,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::resource('/contributions', ContributionController::class);
     Route::resource('/groups', GroupController::class);
-    Route::resource('/attachments', \App\Http\Controllers\AttachmentController::class);
+    Route::resource('/attachments', AttachmentController::class);
+    Route::get('/attachments/{attachment}/download', [AttachmentController::class, 'download'])->name('attachments.download');
     // Courses Routes
     Route::prefix('courses')->name('courses.')->group(function () {
         Route::get('enroll/{course}', [CourseController::class, 'enroll'])->name('enroll');
@@ -34,6 +36,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // Lessons Routes
     Route::resource('lessons', LessonController::class)->except(['create', 'edit']);
+    Route::resource('echo', \App\Http\Controllers\EchoCardController::class);
 
     // User-specific routes
     Route::prefix('user')->name('user.')->group(function () {

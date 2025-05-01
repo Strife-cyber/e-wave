@@ -45,7 +45,7 @@ class AttachmentController extends Controller
     public function store(Request $request): JsonResponse
     {
         $request->validate([
-            'file' => 'required|file|mimes:jpg,png,pdf,doc,docx|max:10240', // 10MB max
+            'file' => 'required|file|mimes:jpg,png,pdf,doc,docx,audio,webm|max:20480', // 20MB max
         ]);
 
         try {
@@ -65,7 +65,7 @@ class AttachmentController extends Controller
                 'name' => $attachment->original_name,
                 'mime' => $attachment->mime_type,
                 'size' => $attachment->size,
-                'url' => $attachment->getSignedUrl(),
+                'url' => $attachment->getSignedUrl(60000),
             ], Response::HTTP_CREATED);
         } catch (Throwable $e) {
             report($e);
@@ -94,7 +94,7 @@ class AttachmentController extends Controller
                 'name' => $attachment->original_name,
                 'mime' => $attachment->mime_type,
                 'size' => $attachment->size,
-                'url' => $attachment->getSignedUrl(),
+                'url' => $attachment->getSignedUrl(6000),
             ], Response::HTTP_OK);
         } catch (Throwable $e) {
             report($e);

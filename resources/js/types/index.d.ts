@@ -88,5 +88,4 @@ export interface Message {
     }>;
 }
 
-
 export type BreadcrumbItemType = BreadcrumbItem;

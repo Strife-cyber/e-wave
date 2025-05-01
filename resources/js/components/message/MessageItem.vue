@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { User } from '@/types';
+import { Message, User } from '@/types';
 import { format } from 'date-fns';
+import { ref, watch } from 'vue';
 
 interface Message {
     id: string;
@@ -30,19 +31,31 @@ const emit = defineEmits<{
     imagePreview: [message: Message];
 }>();
 
+// Local reactive message to ensure deep reactivity
+const localMessage = ref<Message>(props.message);
+
+// Watch for deep changes to message prop
+watch(
+    () => props.message,
+    (newMessage) => {
+        localMessage.value = newMessage;
+    },
+    { deep: true },
+);
+
 const formatMessageTime = (timestamp: string) => {
     return format(new Date(timestamp), 'h:mm a');
 };
 
 const addReaction = (emoji: string) => {
-    emit('addReaction', props.message.id, emoji);
+    emit('addReaction', localMessage.value.id, emoji);
 };
 
 const showImagePreview = () => {
-    emit('imagePreview', props.message);
+    emit('imagePreview', localMessage.value);
 };
 
-const isCurrentUser = props.message.user.id === props.currentUser.id;
+const isCurrentUser = localMessage.value.user.id === props.currentUser.id;
 </script>
 
 <template>
@@ -53,13 +66,13 @@ const isCurrentUser = props.message.user.id === props.currentUser.id;
             <div
                 v-if="!isCurrentUser"
                 class="h-8 w-8 flex-shrink-0 rounded-full bg-cover bg-center"
-                :style="message.user.avatar ? `background-image: url(${message.user.avatar})` : ''"
+                :style="localMessage.user.avatar ? `background-image: url(${localMessage.user.avatar})` : ''"
             >
                 <div
-                    v-if="!message.user.avatar"
+                    v-if="!localMessage.user.avatar"
                     class="flex h-full w-full items-center justify-center rounded-full bg-purple-300 font-medium text-white dark:bg-purple-500"
                 >
-                    {{ message.user.name.charAt(0) }}
+                    {{ localMessage.user.name.charAt(0) }}
                 </div>
             </div>
 
@@ -67,7 +80,7 @@ const isCurrentUser = props.message.user.id === props.currentUser.id;
             <div class="flex flex-col">
                 <!-- Sender name (only for others) -->
                 <span v-if="!isCurrentUser" class="mb-1 text-xs text-gray-500 dark:text-gray-400">
-                    {{ message.user.name }}
+                    {{ localMessage.user.name }}
                 </span>
 
                 <!-- Message bubble -->
@@ -80,11 +93,11 @@ const isCurrentUser = props.message.user.id === props.currentUser.id;
                     ]"
                 >
                     <!-- Message text -->
-                    <p class="whitespace-pre-wrap">{{ message.text }}</p>
+                    <p class="whitespace-pre-wrap">{{ localMessage.text }}</p>
 
                     <!-- Attachments -->
-                    <div v-if="message.attachments && message.attachments.length > 0" class="mt-2 space-y-2">
-                        <div v-for="(attachment, index) in message.attachments" :key="index" class="attachment">
+                    <div v-if="localMessage.attachments && localMessage.attachments.length > 0" class="mt-2 space-y-2">
+                        <div v-for="(attachment, index) in localMessage.attachments" :key="index" class="attachment">
                             <!-- Image attachment -->
                             <img
                                 v-if="attachment.type.startsWith('image/')"
@@ -143,9 +156,9 @@ const isCurrentUser = props.message.user.id === props.currentUser.id;
                     </div>
 
                     <!-- Reactions -->
-                    <div v-if="message.reactions && message.reactions.length > 0" class="mt-2 flex flex-wrap gap-1">
+                    <div v-if="localMessage.reactions && localMessage.reactions.length > 0" class="mt-2 flex flex-wrap gap-1">
                         <div
-                            v-for="(reaction, index) in message.reactions"
+                            v-for="(reaction, index) in localMessage.reactions"
                             :key="index"
                             class="flex items-center rounded-full bg-gray-100 px-2 py-0.5 text-sm dark:bg-gray-700"
                         >
@@ -157,13 +170,13 @@ const isCurrentUser = props.message.user.id === props.currentUser.id;
 
                 <!-- Timestamp and status -->
                 <div :class="['mt-1 flex items-center gap-1 text-xs', isCurrentUser ? 'justify-end' : '']">
-                    <span class="text-gray-500 dark:text-gray-400">{{ formatMessageTime(message.timestamp) }}</span>
+                    <span class="text-gray-500 dark:text-gray-400">{{ formatMessageTime(localMessage.timestamp) }}</span>
 
                     <!-- Message status (only for current user's messages) -->
                     <span v-if="isCurrentUser">
                         <!-- Sending -->
                         <svg
-                            v-if="message.status === 'sending'"
+                            v-if="localMessage.status === 'sending'"
                             xmlns="http://www.w3.org/2000/svg"
                             class="h-3 w-3 animate-pulse text-gray-400 dark:text-gray-500"
                             fill="none"
@@ -175,7 +188,7 @@ const isCurrentUser = props.message.user.id === props.currentUser.id;
 
                         <!-- Sent -->
                         <svg
-                            v-else-if="message.status === 'sent'"
+                            v-else-if="localMessage.status === 'sent'"
                             xmlns="http://www.w3.org/2000/svg"
                             class="h-3 w-3 text-gray-400 dark:text-gray-500"
                             viewBox="0 0 20 20"
@@ -190,7 +203,7 @@ const isCurrentUser = props.message.user.id === props.currentUser.id;
 
                         <!-- Delivered -->
                         <svg
-                            v-else-if="message.status === 'delivered'"
+                            v-else-if="localMessage.status === 'delivered'"
                             xmlns="http://www.w3.org/2000/svg"
                             class="h-3 w-3 text-purple-400 dark:text-purple-500"
                             viewBox="0 0 20 20"
@@ -205,7 +218,7 @@ const isCurrentUser = props.message.user.id === props.currentUser.id;
 
                         <!-- Read -->
                         <svg
-                            v-else-if="message.status === 'read'"
+                            v-else-if="localMessage.status === 'read'"
                             xmlns="http://www.w3.org/2000/svg"
                             class="h-3 w-3 text-purple-400 dark:text-purple-500"
                             viewBox="0 0 20 20"

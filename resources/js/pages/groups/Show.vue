@@ -18,6 +18,14 @@ const props = defineProps({
         type: Object as () => User,
         required: true,
     },
+    success: {
+        type: String,
+        required: false,
+    },
+    attachment: {
+        type: Object,
+        required: false,
+    },
 });
 
 const emit = defineEmits(['generate-echo-cards']);

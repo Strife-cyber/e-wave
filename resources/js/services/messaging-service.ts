@@ -1,7 +1,7 @@
-// src/services/MessagingService.ts
 import { database } from '@/firebase';
 import { Message, User } from '@/types';
-import { get, onChildAdded, orderByChild, push, query, ref as dbRef, update } from 'firebase/database';
+import axios from 'axios';
+import { ref as dbRef, get, onValue, orderByChild, push, query, update } from 'firebase/database';
 
 class MessagingService {
     private readonly messagesRef;
@@ -13,35 +13,90 @@ class MessagingService {
         this.typingRef = dbRef(database, `typing/${group}`);
     }
 
-    // Send a message
-    async sendMessage(message: Message): Promise<void> {
-        if (!message) {
-            throw new Error('Message required');
-        }
+    // Upload attachment to Laravel backend using Inertia
+    private async uploadAttachment(file: File): Promise<{ type: string; url: string; name: string; size: number }> {
         try {
-            console.log(message);
+            const formData = new FormData();
+            formData.append('file', file);
+
+            const response = await axios.post('/attachments', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
+            console.log(response);
+            const attachment = response.data;
+
+            return {
+                id: attachment.id,
+                type: attachment.mime,
+                size: attachment.size,
+                name: attachment.name,
+                url: attachment.url,
+            }; // Adjust based on your backend response
+        } catch (error) {
+            console.error('Error uploading attachment:', error);
+            throw error;
+        }
+    }
+
+    // Send a message with optional attachments
+    async sendMessage(message: Message, files?: File[]): Promise<void> {
+        if (!message || (!message.text.trim() && (!files || files.length === 0))) {
+            throw new Error('Message text or attachments required');
+        }
+
+        try {
+            let attachments: Array<{ type: string; url: string; name: string; size: number }> = [];
+            if (files && files.length > 0) {
+                attachments = await Promise.all(files.map((file) => this.uploadAttachment(file)));
+                console.log(attachments);
+            }
+
+            const messageData: { [key: string]: any } = {
+                text: message.text,
+                user: message.user,
+                timestamp: new Date().toISOString(),
+                status: 'sent',
+            };
+
+            if (attachments.length > 0) {
+                messageData.attachments = attachments;
+            }
+
+            if (message.reactions && message.reactions.length > 0) {
+                messageData.reactions = message.reactions;
+            }
+
+            await push(this.messagesRef, messageData);
         } catch (error) {
             const errorMessage = error instanceof Error ? error.message : String(error);
             throw new Error(`Failed to send message: ${errorMessage}`);
         }
     }
 
-    // Listen for new messages in real-time
-    listenToMessages(callback: (message: Message) => void): () => void {
+    // Listen for all message changes in real-time
+    listenToMessages(callback: (messages: Message[]) => void): () => void {
         const messagesQuery = query(this.messagesRef, orderByChild('timestamp'));
-        return onChildAdded(
+        return onValue(
             messagesQuery,
             (snapshot) => {
-                const data = snapshot.val();
-                callback({
-                    id: snapshot.key || '',
-                    text: data.text,
-                    user: data.user,
-                    timestamp: data.timestamp,
-                    status: data.status,
-                    attachments: data.attachments,
-                    reactions: data.reactions,
-                });
+                const messages: Message[] = [];
+                if (snapshot.exists()) {
+                    snapshot.forEach((childSnapshot) => {
+                        const data = childSnapshot.val();
+                        messages.push({
+                            id: childSnapshot.key || '',
+                            text: data.text || '',
+                            user: data.user || { id: '', name: '' },
+                            timestamp: data.timestamp || '',
+                            status: data.status || 'sent',
+                            attachments: data.attachments || [],
+                            reactions: data.reactions || [],
+                        });
+                    });
+                }
+                callback(messages);
             },
             (error) => {
                 console.error('Failed to listen to messages:', error);
@@ -61,12 +116,12 @@ class MessagingService {
                     const data = childSnapshot.val();
                     messages.push({
                         id: childSnapshot.key || '',
-                        text: data.text,
-                        user: data.user,
-                        timestamp: data.timestamp,
-                        status: data.status,
-                        attachments: data.attachments,
-                        reactions: data.reactions,
+                        text: data.text || '',
+                        user: data.user || { id: '', name: '' },
+                        timestamp: data.timestamp || '',
+                        status: data.status || 'sent',
+                        attachments: data.attachments || [],
+                        reactions: data.reactions || [],
                     });
                 });
             }
@@ -80,8 +135,6 @@ class MessagingService {
     // Fetch messages before a specific message
     async getMessagesBefore(messageId: string): Promise<Message[]> {
         try {
-            // In a real implementation, you'd use Firebase queries with limits
-            // This is a simplified version
             const snapshot = await get(this.messagesRef);
             const messages: Message[] = [];
 
@@ -91,12 +144,12 @@ class MessagingService {
                         const data = childSnapshot.val();
                         messages.push({
                             id: childSnapshot.key || '',
-                            text: data.text,
-                            user: data.user,
-                            timestamp: data.timestamp,
-                            status: data.status,
-                            attachments: data.attachments,
-                            reactions: data.reactions,
+                            text: data.text || '',
+                            user: data.user || { id: '', name: '' },
+                            timestamp: data.timestamp || '',
+                            status: data.status || 'sent',
+                            attachments: data.attachments || [],
+                            reactions: data.reactions || [],
                         });
                     }
                 });
@@ -136,7 +189,7 @@ class MessagingService {
 
     // Listen for typing indicators
     listenToTypingIndicators(callback: (users: User[]) => void): () => void {
-        return onChildAdded(
+        return onValue(
             this.typingRef,
             (snapshot) => {
                 const users: User[] = [];
@@ -200,7 +253,6 @@ class MessagingService {
     }
 }
 
-// Export factory function to create messaging service instances
 export default function createMessagingService(group: string) {
     return new MessagingService(group);
 }

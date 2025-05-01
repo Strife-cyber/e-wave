@@ -47,9 +47,8 @@ class Attachment extends Model
     public function getSignedUrl(int $minutes = 5): string
     {
         return URL::temporarySignedRoute(
-            'attachments.download',
-            now()->addMinutes($minutes),
-            ['id' => $this->id]
+            'attachments/'.$this->id.'/download',
+            now()->addMinutes($minutes)
         );
     }
 

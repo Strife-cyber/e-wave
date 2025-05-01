@@ -16,6 +16,10 @@ class GroupController extends Controller
         $auth = auth()->user();
         $user = User::find($auth->id);
         $groups = $user->groups;
+        $members = $user->group_members;
+        foreach ($members as $member) {
+            $groups->add($member->group);
+        }
 
         return Inertia::render('groups/Index', [
             'groups' => $groups,
@@ -52,6 +56,8 @@ class GroupController extends Controller
             'groupMembers' => $members,
             'group' => $group,
             'currentUser' => $user,
+            'success' => '',
+            'attachment' => []
         ]);
     }
 
