@@ -187,4 +187,22 @@ class User extends Authenticatable
     {
         return $this->hasMany(CollaborationEvent::class);
     }
+
+    /**
+     * Get the echo sessions the user has created
+     *
+     * @return HasMany The relationship to the EchoSession Model
+     */
+    public function echo_session(): HasMany
+    {
+        return $this->hasMany(EchoSession::class);
+    }
+
+    /**
+     * @return HasMany The relationship to the Recommendation Model.
+     */
+    public function recommendations(): HasMany
+    {
+        return $this->hasMany(Recommendation::class);
+    }
 }

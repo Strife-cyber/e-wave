@@ -3,20 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Models\Content;
-use App\Models\EchoCard;
+use App\Http\Requests\StoreContentRequest;
+use App\Http\Requests\UpdateContentRequest;
 use Inertia\Inertia;
 
-class EchoCardController extends Controller
+class ContentController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $contents = Content::all();
-        return Inertia::render('chamber/Index', [
-            'contents' => $contents
-        ]);
     }
 
     /**
@@ -30,7 +27,7 @@ class EchoCardController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(App\Http\Requests\EchoCardStoreRequest $request)
+    public function store(StoreContentRequest $request)
     {
         //
     }
@@ -38,7 +35,7 @@ class EchoCardController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(EchoCard $echoCard)
+    public function show(Content $content)
     {
         //
     }
@@ -46,7 +43,7 @@ class EchoCardController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(EchoCard $echoCard)
+    public function edit(Content $content)
     {
         //
     }
@@ -54,7 +51,7 @@ class EchoCardController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(App\Http\Requests\EchoCardUpdateRequest $request, EchoCard $echoCard)
+    public function update(UpdateContentRequest $request, Content $content)
     {
         //
     }
@@ -62,7 +59,7 @@ class EchoCardController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(EchoCard $echoCard)
+    public function destroy(Content $content)
     {
         //
     }
