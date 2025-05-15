@@ -16,6 +16,8 @@ return new class extends Migration
             $table->string('name');
             $table->string('email')->unique('users_email_key');
             $table->string('password');
+            $table->string('profile')->nullable();
+            $table->string('provider');
             $table->enum('role', ['student', 'teacher', 'admin']);
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();

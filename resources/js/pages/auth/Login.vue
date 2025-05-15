@@ -7,17 +7,20 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import AuthBase from '@/layouts/AuthLayout.vue';
 import { Head, useForm } from '@inertiajs/vue3';
+import { signInWithSocialProvider } from '@/services/auth-service';
 import { BookOpen, GraduationCap, LoaderCircle, Lock, Mail } from 'lucide-vue-next';
 
-defineProps<{
+const props = defineProps<{
     status?: string;
     canResetPassword: boolean;
+    token?: string; // Add token prop
 }>();
 
 const form = useForm({
     email: '',
     password: '',
     remember: false,
+    token: '', // Add token field
 });
 
 const submit = () => {
@@ -25,6 +28,33 @@ const submit = () => {
         onFinish: () => form.reset('password'),
     });
 };
+
+// Handle Google sign-in
+const handleGoogleSignIn = async () => {
+    await signInWithSocialProvider('google', {
+        onStart: () => console.log('Google sign-in started'),
+        onFinish: () => console.log('Google sign-in finished'),
+        onFirebaseSuccess: (user) => console.log('Firebase success:', user),
+        onFirebaseError: (code, message) => console.error('Firebase error:', code, message),
+        onBackendSuccess: () => console.log('Backend success'),
+        onBackendError: (message) => console.error('Backend error:', message),
+    }, props.token); // Pass the token
+};
+
+// Handle GitHub sign-in
+const handleGitHubSignIn = async () => {
+    await signInWithSocialProvider('github', {
+        onStart: () => console.log('GitHub sign-in started'),
+        onFinish: () => console.log('GitHub sign-in finished'),
+        onFirebaseSuccess: (user) => console.log('Firebase success:', user),
+        onFirebaseError: (code, message) => console.error('Firebase error:', code, message),
+        onBackendSuccess: () => console.log('Backend success'),
+        onBackendError: (message) => console.error('Backend error:', message),
+    }, props.token); // Pass the token
+};
+
+// Set the token from props when available
+form.token = props.token ?? '';
 </script>
 
 <template>
@@ -120,6 +150,7 @@ const submit = () => {
             <div class="grid grid-cols-2 gap-4">
                 <button
                     type="button"
+                    @click="handleGoogleSignIn"
                     class="flex items-center justify-center gap-2 rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm transition-all duration-300 hover:bg-gray-50"
                 >
                     <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
@@ -144,6 +175,7 @@ const submit = () => {
                 </button>
                 <button
                     type="button"
+                    @click="handleGitHubSignIn"
                     class="flex items-center justify-center gap-2 rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm transition-all duration-300 hover:bg-gray-50"
                 >
                     <svg class="h-5 w-5 text-[#24292F]" fill="currentColor" viewBox="0 0 24 24">
@@ -177,7 +209,13 @@ const submit = () => {
             </div>
             <div class="flex animate-pulse flex-col items-center" style="animation-delay: 0.2s">
                 <div class="rounded-full bg-cyan-100 p-3">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-cyan-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="h-6 w-6 text-cyan-600"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                    >
                         <path
                             stroke-linecap="round"
                             stroke-linejoin="round"

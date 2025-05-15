@@ -34,6 +34,7 @@ export interface User {
     name: string;
     email: string;
     avatar?: string;
+    profile?: string;
     email_verified_at: string | null;
     created_at: string;
     updated_at: string;
@@ -89,3 +90,11 @@ export interface Message {
 }
 
 export type BreadcrumbItemType = BreadcrumbItem;
+
+export interface AuthPayload {
+    token: string;
+    displayName: string | null;
+    photoUrl: string | null;
+    email: string | null;
+    emailVerified: boolean;
+}

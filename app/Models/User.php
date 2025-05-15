@@ -49,6 +49,8 @@ use Illuminate\Notifications\Notifiable;
  * @method static Builder|User whereRole($value)
  * @method static Builder|User whereUpdatedAt($value)
  * @method static User|null find($id) Find a user by their ID.
+ * @method static where(string $string, mixed $email)
+ * @method static create(array $array)
  */
 class User extends Authenticatable
 {
@@ -82,6 +84,8 @@ class User extends Authenticatable
         'email',
         'password',
         'role',
+        'profile',
+        'provider'
     ];
 
     /**

@@ -67,9 +67,6 @@
                             </div>
                         </div>
 
-                        <!-- Theme Toggle -->
-                        <ThemeToggle class="rounded-full p-2 transition-colors duration-200 hover:bg-gray-100 dark:hover:bg-gray-800" />
-
                         <!-- Mobile Menu Button -->
                         <button
                             class="rounded-md p-2 transition-colors duration-200 hover:bg-gray-100 dark:hover:bg-gray-800 lg:hidden"
@@ -792,11 +789,9 @@ import {
     Linkedin as LinkedinIcon,
     MessageCircle as MessageCircleIcon,
     MessageSquare as MessageSquareIcon,
-    Moon as MoonIcon,
     PenTool as PenToolIcon,
     RefreshCw as RefreshCwIcon,
     Star as StarIcon,
-    Sun as SunIcon,
     Trophy as TrophyIcon,
     Twitter as TwitterIcon,
     Users as UsersIcon,
@@ -807,51 +802,8 @@ import { computed, onMounted, onUnmounted, ref } from 'vue';
 // Access page props
 const page = usePage();
 
-// Theme state
-const isDark = ref(false);
-
 // Authentication status
 const isUserLoggedIn = computed(() => !!page.props.auth.user);
-
-// Check for system preference on mount
-const checkSystemTheme = () => {
-    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        isDark.value = true;
-        document.documentElement.classList.add('dark');
-    }
-};
-
-// Toggle theme function
-const toggleTheme = () => {
-    isDark.value = !isDark.value;
-    if (isDark.value) {
-        document.documentElement.classList.add('dark');
-    } else {
-        document.documentElement.classList.remove('dark');
-    }
-    localStorage.setItem('theme', isDark.value ? 'dark' : 'light');
-};
-
-// Theme toggle component
-const ThemeToggle = {
-    setup() {
-        return { isDark, toggleTheme };
-    },
-    template: `
-    <button
-      @click="toggleTheme"
-      class="w-10 h-10 rounded-full flex items-center justify-center bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
-      aria-label="Toggle theme"
-    >
-      <SunIcon v-if="isDark" size="18" />
-      <MoonIcon v-else size="18" />
-    </button>
-  `,
-    components: {
-        SunIcon,
-        MoonIcon,
-    },
-};
 
 // Refs for animation elements
 const heroText = ref(null);
@@ -983,19 +935,6 @@ const setupIntersectionObserver = () => {
 };
 
 onMounted(() => {
-    // Check for saved theme preference
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme) {
-        isDark.value = savedTheme === 'dark';
-        if (isDark.value) {
-            document.documentElement.classList.add('dark');
-        } else {
-            document.documentElement.classList.remove('dark');
-        }
-    } else {
-        checkSystemTheme();
-    }
-
     setupIntersectionObserver();
     animateCursor();
 });
@@ -1008,9 +947,6 @@ onUnmounted(() => {
 </script>
 
 <style>
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
 
 /* Custom animations and utilities that extend Tailwind */
 .animate-in {
