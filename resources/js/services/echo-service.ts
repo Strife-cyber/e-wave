@@ -1,7 +1,7 @@
 import { database } from '@/firebase';
 import { Message, User } from '@/types';
 import axios from 'axios';
-import { get, onValue, orderByChild, push, ref as dbRef, update } from 'firebase/database';
+import { ref as dbRef, get, onValue, orderByChild, push, update } from 'firebase/database';
 
 // Assuming Message and User types are defined in '@/types'
 interface Message {

@@ -947,7 +947,6 @@ onUnmounted(() => {
 </script>
 
 <style>
-
 /* Custom animations and utilities that extend Tailwind */
 .animate-in {
     @apply transform-none opacity-100;

@@ -29,13 +29,13 @@ class RegisteredUserController extends Controller
         $key = env('REGISTRATION_TOKEN_KEY');
         $iv = openssl_random_pseudo_bytes(openssl_cipher_iv_length('aes-256-cbc'));
         $encryptedToken = openssl_encrypt($plainToken, 'aes-256-cbc', $key, 0, $iv);
-        $encryptedToken = base64_encode($encryptedToken . '::' . $iv);
+        $encryptedToken = base64_encode($encryptedToken.'::'.$iv);
 
         // Store the encrypted token with a 15-minute expiration
         Token::create([
             'token' => $encryptedToken,
             'type' => 'registration',
-            'expires_at' => Carbon::now()->addMinutes(15)
+            'expires_at' => Carbon::now()->addMinutes(15),
         ]);
 
         return Inertia::render('auth/Register', [
@@ -50,12 +50,12 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        $provider = $request->has('emailVerified') && !$request->has('password') ? 'social' : 'email';
+        $provider = $request->has('emailVerified') && ! $request->has('password') ? 'social' : 'email';
 
         // Conditional validation for email uniqueness
         $emailRules = ['required', 'string', 'lowercase', 'email', 'max:255'];
         if ($provider === 'email') {
-            $emailRules[] = 'unique:' . User::class;
+            $emailRules[] = 'unique:'.User::class;
         }
 
         $request->validate([
@@ -77,7 +77,7 @@ class RegisteredUserController extends Controller
 
         $validToken = null;
         foreach ($tokens as $token) {
-            list($encryptedToken, $iv) = explode('::', base64_decode($token->token));
+            [$encryptedToken, $iv] = explode('::', base64_decode($token->token));
             $decryptedToken = openssl_decrypt($encryptedToken, 'aes-256-cbc', $key, 0, $iv);
             if ($decryptedToken === $plainToken) {
                 $validToken = $token;
@@ -85,7 +85,7 @@ class RegisteredUserController extends Controller
             }
         }
 
-        if (!$validToken) {
+        if (! $validToken) {
             return redirect()->back()->withErrors(['token' => 'Invalid or expired token']);
         }
 
@@ -98,6 +98,7 @@ class RegisteredUserController extends Controller
                 // Log in the existing user
                 Auth::login($existingUser);
                 $validToken->delete();
+
                 return to_route('dashboard');
             }
         }

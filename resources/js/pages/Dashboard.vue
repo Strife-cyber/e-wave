@@ -125,7 +125,7 @@ const breadcrumbs: BreadcrumbItem[] = [{ title: 'Dashboard', href: '/dashboard' 
             <!-- Mobile/Tablet Menu Button -->
             <button
                 @click="toggleMobileMenu"
-                class="mobile-menu-button fixed right-4 top-4 z-50 block rounded-full bg-white p-2 shadow-md lg:hidden dark:bg-gray-800"
+                class="mobile-menu-button fixed right-4 top-4 z-50 block rounded-full bg-white p-2 shadow-md dark:bg-gray-800 lg:hidden"
             >
                 <Menu class="h-6 w-6 text-purple-600 dark:text-purple-400" />
             </button>
@@ -137,7 +137,7 @@ const breadcrumbs: BreadcrumbItem[] = [{ title: 'Dashboard', href: '/dashboard' 
                 class="fixed inset-0 z-40 bg-gray-900/50 backdrop-blur-sm lg:hidden"
                 @click.self="showMobileMenu = false"
             >
-                <div class="absolute right-0 top-0 h-full w-64 md:w-80 bg-white p-6 shadow-xl dark:bg-gray-800">
+                <div class="absolute right-0 top-0 h-full w-64 bg-white p-6 shadow-xl dark:bg-gray-800 md:w-80">
                     <div class="mb-8 flex flex-col space-y-4">
                         <a
                             href="/dashboard"
@@ -178,12 +178,12 @@ const breadcrumbs: BreadcrumbItem[] = [{ title: 'Dashboard', href: '/dashboard' 
                 </div>
             </div>
 
-            <div class="flex h-full flex-1 flex-col gap-6 rounded-xl bg-white/80 p-4 md:p-6 backdrop-blur-sm dark:bg-black">
+            <div class="flex h-full flex-1 flex-col gap-6 rounded-xl bg-white/80 p-4 backdrop-blur-sm dark:bg-black md:p-6">
                 <!-- Welcome Section -->
-                <div class="animate-fade-in mb-6 md:mb-8 p-3 md:p-4">
-                    <h2 class="font-pacifico text-xl md:text-2xl text-gray-800 dark:text-gray-100">
+                <div class="animate-fade-in mb-6 p-3 md:mb-8 md:p-4">
+                    <h2 class="font-pacifico text-xl text-gray-800 dark:text-gray-100 md:text-2xl">
                         Welcome back, <span class="text-purple-500 dark:text-purple-400">{{ user.name }}</span
-                    >!
+                        >!
                     </h2>
                     <p class="mt-2 text-sm text-gray-600 dark:text-gray-300">
                         Continue your learning journey. You have
@@ -192,27 +192,30 @@ const breadcrumbs: BreadcrumbItem[] = [{ title: 'Dashboard', href: '/dashboard' 
                 </div>
 
                 <!-- Stats Overview -->
-                <div class="mb-6 md:mb-8 grid grid-cols-2 gap-3 md:gap-4 lg:gap-6 md:grid-cols-4">
+                <div class="mb-6 grid grid-cols-2 gap-3 md:mb-8 md:grid-cols-4 md:gap-4 lg:gap-6">
                     <!-- Progress Card -->
-                    <div class="animate-fade-in rounded-xl bg-white p-3 md:p-4 lg:p-6 shadow-md transition-all hover:shadow-lg dark:bg-gray-800">
-                        <div class="mb-3 md:mb-4 flex items-center justify-between">
-                            <h3 class="text-base md:text-lg font-semibold text-gray-700 dark:text-gray-200">Learning Progress</h3>
-                            <div class="rounded-full bg-purple-100 p-1.5 md:p-2 dark:bg-purple-900/30">
-                                <BarChart2 class="h-4 w-4 md:h-5 md:w-5 text-purple-600 dark:text-purple-400" />
+                    <div class="animate-fade-in rounded-xl bg-white p-3 shadow-md transition-all hover:shadow-lg dark:bg-gray-800 md:p-4 lg:p-6">
+                        <div class="mb-3 flex items-center justify-between md:mb-4">
+                            <h3 class="text-base font-semibold text-gray-700 dark:text-gray-200 md:text-lg">Learning Progress</h3>
+                            <div class="rounded-full bg-purple-100 p-1.5 dark:bg-purple-900/30 md:p-2">
+                                <BarChart2 class="h-4 w-4 text-purple-600 dark:text-purple-400 md:h-5 md:w-5" />
                             </div>
                         </div>
                         <div class="mb-3 md:mb-4">
-                            <div class="mb-2 flex justify-between text-xs md:text-sm text-gray-600 dark:text-gray-400">
+                            <div class="mb-2 flex justify-between text-xs text-gray-600 dark:text-gray-400 md:text-sm">
                                 <span>{{ completionPercentage }}% Complete</span>
                                 <span>{{ completedCount }}/{{ progress.length }}</span>
                             </div>
-                            <div class="progress-bar-container h-2 md:h-2.5 w-full rounded-full bg-gray-200 dark:bg-gray-700">
-                                <div class="progress-bar h-2 md:h-2.5 rounded-full bg-purple-600" :style="{ width: `${completionPercentage}%` }"></div>
+                            <div class="progress-bar-container h-2 w-full rounded-full bg-gray-200 dark:bg-gray-700 md:h-2.5">
+                                <div
+                                    class="progress-bar h-2 rounded-full bg-purple-600 md:h-2.5"
+                                    :style="{ width: `${completionPercentage}%` }"
+                                ></div>
                             </div>
                         </div>
                         <button
                             @click="navigateTo('/user/progress')"
-                            class="flex items-center text-xs md:text-sm font-medium text-purple-600 hover:text-purple-800"
+                            class="flex items-center text-xs font-medium text-purple-600 hover:text-purple-800 md:text-sm"
                         >
                             View details
                             <svg class="ml-1 h-3 w-3 md:h-4 md:w-4" viewBox="0 0 20 20" fill="currentColor">
@@ -226,20 +229,20 @@ const breadcrumbs: BreadcrumbItem[] = [{ title: 'Dashboard', href: '/dashboard' 
                     </div>
 
                     <!-- Rewards Card -->
-                    <div class="animate-fade-in rounded-xl bg-white p-3 md:p-4 lg:p-6 shadow-md transition-all hover:shadow-lg dark:bg-gray-800">
-                        <div class="mb-3 md:mb-4 flex items-center justify-between">
-                            <h3 class="text-base md:text-lg font-semibold text-gray-700 dark:text-gray-200">Rewards</h3>
-                            <div class="rounded-full bg-yellow-100 p-1.5 md:p-2 dark:bg-yellow-900/30">
-                                <Award class="h-4 w-4 md:h-5 md:w-5 text-yellow-600 dark:text-yellow-400" />
+                    <div class="animate-fade-in rounded-xl bg-white p-3 shadow-md transition-all hover:shadow-lg dark:bg-gray-800 md:p-4 lg:p-6">
+                        <div class="mb-3 flex items-center justify-between md:mb-4">
+                            <h3 class="text-base font-semibold text-gray-700 dark:text-gray-200 md:text-lg">Rewards</h3>
+                            <div class="rounded-full bg-yellow-100 p-1.5 dark:bg-yellow-900/30 md:p-2">
+                                <Award class="h-4 w-4 text-yellow-600 dark:text-yellow-400 md:h-5 md:w-5" />
                             </div>
                         </div>
-                        <div class="mb-3 md:mb-4 flex items-end">
-                            <span class="rewards-count text-2xl md:text-3xl font-bold text-gray-800 dark:text-gray-100">{{ rewards }}</span>
-                            <span class="ml-1 md:ml-2 text-xs md:text-sm text-gray-500 dark:text-gray-400">points</span>
+                        <div class="mb-3 flex items-end md:mb-4">
+                            <span class="rewards-count text-2xl font-bold text-gray-800 dark:text-gray-100 md:text-3xl">{{ rewards }}</span>
+                            <span class="ml-1 text-xs text-gray-500 dark:text-gray-400 md:ml-2 md:text-sm">points</span>
                         </div>
                         <button
                             @click="navigateTo('/user/rewards')"
-                            class="flex items-center text-xs md:text-sm font-medium text-purple-600 hover:text-purple-800"
+                            class="flex items-center text-xs font-medium text-purple-600 hover:text-purple-800 md:text-sm"
                         >
                             Redeem rewards
                             <svg class="ml-1 h-3 w-3 md:h-4 md:w-4" viewBox="0 0 20 20" fill="currentColor">
@@ -253,20 +256,20 @@ const breadcrumbs: BreadcrumbItem[] = [{ title: 'Dashboard', href: '/dashboard' 
                     </div>
 
                     <!-- Badges Card -->
-                    <div class="animate-fade-in rounded-xl bg-white p-3 md:p-4 lg:p-6 shadow-md transition-all hover:shadow-lg dark:bg-gray-800">
-                        <div class="mb-3 md:mb-4 flex items-center justify-between">
-                            <h3 class="text-base md:text-lg font-semibold text-gray-700 dark:text-gray-200">Badges</h3>
-                            <div class="rounded-full bg-purple-100 p-1.5 md:p-2 dark:bg-purple-900/30">
-                                <Shield class="h-4 w-4 md:h-5 md:w-5 text-purple-600 dark:text-purple-400" />
+                    <div class="animate-fade-in rounded-xl bg-white p-3 shadow-md transition-all hover:shadow-lg dark:bg-gray-800 md:p-4 lg:p-6">
+                        <div class="mb-3 flex items-center justify-between md:mb-4">
+                            <h3 class="text-base font-semibold text-gray-700 dark:text-gray-200 md:text-lg">Badges</h3>
+                            <div class="rounded-full bg-purple-100 p-1.5 dark:bg-purple-900/30 md:p-2">
+                                <Shield class="h-4 w-4 text-purple-600 dark:text-purple-400 md:h-5 md:w-5" />
                             </div>
                         </div>
-                        <div class="mb-3 md:mb-4 flex items-end">
-                            <span class="badges-count text-2xl md:text-3xl font-bold text-gray-800 dark:text-gray-100">{{ badges.length }}</span>
-                            <span class="ml-1 md:ml-2 text-xs md:text-sm text-gray-500 dark:text-gray-400">earned</span>
+                        <div class="mb-3 flex items-end md:mb-4">
+                            <span class="badges-count text-2xl font-bold text-gray-800 dark:text-gray-100 md:text-3xl">{{ badges.length }}</span>
+                            <span class="ml-1 text-xs text-gray-500 dark:text-gray-400 md:ml-2 md:text-sm">earned</span>
                         </div>
                         <button
                             @click="navigateTo('/user/badges')"
-                            class="flex items-center text-xs md:text-sm font-medium text-purple-600 hover:text-purple-800"
+                            class="flex items-center text-xs font-medium text-purple-600 hover:text-purple-800 md:text-sm"
                         >
                             View all badges
                             <svg class="ml-1 h-3 w-3 md:h-4 md:w-4" viewBox="0 0 20 20" fill="currentColor">
@@ -280,20 +283,20 @@ const breadcrumbs: BreadcrumbItem[] = [{ title: 'Dashboard', href: '/dashboard' 
                     </div>
 
                     <!-- Groups Card -->
-                    <div class="animate-fade-in rounded-xl bg-white p-3 md:p-4 lg:p-6 shadow-md transition-all hover:shadow-lg dark:bg-gray-800">
-                        <div class="mb-3 md:mb-4 flex items-center justify-between">
-                            <h3 class="text-base md:text-lg font-semibold text-gray-700 dark:text-gray-200">Study Groups</h3>
-                            <div class="rounded-full bg-green-100 p-1.5 md:p-2 dark:bg-green-900/30">
-                                <Users class="h-4 w-4 md:h-5 md:w-5 text-green-600 dark:text-green-400" />
+                    <div class="animate-fade-in rounded-xl bg-white p-3 shadow-md transition-all hover:shadow-lg dark:bg-gray-800 md:p-4 lg:p-6">
+                        <div class="mb-3 flex items-center justify-between md:mb-4">
+                            <h3 class="text-base font-semibold text-gray-700 dark:text-gray-200 md:text-lg">Study Groups</h3>
+                            <div class="rounded-full bg-green-100 p-1.5 dark:bg-green-900/30 md:p-2">
+                                <Users class="h-4 w-4 text-green-600 dark:text-green-400 md:h-5 md:w-5" />
                             </div>
                         </div>
-                        <div class="mb-3 md:mb-4 flex items-end">
-                            <span class="groups-count text-2xl md:text-3xl font-bold text-gray-800 dark:text-gray-100">{{ groups.length }}</span>
-                            <span class="ml-1 md:ml-2 text-xs md:text-sm text-gray-500 dark:text-gray-400">active</span>
+                        <div class="mb-3 flex items-end md:mb-4">
+                            <span class="groups-count text-2xl font-bold text-gray-800 dark:text-gray-100 md:text-3xl">{{ groups.length }}</span>
+                            <span class="ml-1 text-xs text-gray-500 dark:text-gray-400 md:ml-2 md:text-sm">active</span>
                         </div>
                         <button
                             @click="navigateTo('/user/groups')"
-                            class="flex items-center text-xs md:text-sm font-medium text-purple-600 hover:text-purple-800"
+                            class="flex items-center text-xs font-medium text-purple-600 hover:text-purple-800 md:text-sm"
                         >
                             View groups
                             <svg class="ml-1 h-3 w-3 md:h-4 md:w-4" viewBox="0 0 20 20" fill="currentColor">
@@ -310,12 +313,15 @@ const breadcrumbs: BreadcrumbItem[] = [{ title: 'Dashboard', href: '/dashboard' 
                 <!-- Main Content -->
                 <div class="grid grid-cols-1 gap-6 md:gap-8">
                     <!-- Tablet-optimized top row: Courses and Echo Cards side by side on tablets -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+                    <div class="grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-8">
                         <!-- Courses Section -->
                         <div class="animate-fade-in rounded-xl bg-white shadow-md dark:bg-gray-800">
-                            <div class="flex items-center justify-between border-b border-gray-200 px-4 md:px-6 py-4 md:py-5 dark:border-gray-700">
-                                <h3 class="text-base md:text-lg font-semibold text-gray-700 dark:text-gray-200">Your Courses</h3>
-                                <a href="/user/courses" class="flex items-center text-xs md:text-sm font-medium text-purple-600 hover:text-purple-800">
+                            <div class="flex items-center justify-between border-b border-gray-200 px-4 py-4 dark:border-gray-700 md:px-6 md:py-5">
+                                <h3 class="text-base font-semibold text-gray-700 dark:text-gray-200 md:text-lg">Your Courses</h3>
+                                <a
+                                    href="/user/courses"
+                                    class="flex items-center text-xs font-medium text-purple-600 hover:text-purple-800 md:text-sm"
+                                >
                                     View all
                                     <svg class="ml-1 h-3 w-3 md:h-4 md:w-4" viewBox="0 0 20 20" fill="currentColor">
                                         <path
@@ -327,32 +333,36 @@ const breadcrumbs: BreadcrumbItem[] = [{ title: 'Dashboard', href: '/dashboard' 
                                 </a>
                             </div>
                             <div class="p-4 md:p-6">
-                                <div v-if="courses.length === 0" class="py-4 text-center text-gray-500 dark:text-gray-400">No courses enrolled yet.</div>
+                                <div v-if="courses.length === 0" class="py-4 text-center text-gray-500 dark:text-gray-400">
+                                    No courses enrolled yet.
+                                </div>
                                 <div v-else class="space-y-3 md:space-y-4">
                                     <div
                                         v-for="course in courses?.slice(0, 3)"
                                         :key="course.id"
-                                        class="course-card rounded-lg border border-gray-200 p-3 md:p-4 transition-colors hover:bg-gray-50 dark:border-gray-700 dark:hover:bg-gray-700"
+                                        class="course-card rounded-lg border border-gray-200 p-3 transition-colors hover:bg-gray-50 dark:border-gray-700 dark:hover:bg-gray-700 md:p-4"
                                         @click="navigateTo(`/courses/${course.id}`)"
                                     >
                                         <div class="flex items-start justify-between">
                                             <div>
                                                 <h4 class="font-medium text-gray-800 dark:text-gray-100">{{ course.title }}</h4>
-                                                <p class="mt-1 text-xs md:text-sm text-gray-600 dark:text-gray-300">{{ course.description }}</p>
-                                                <div class="mt-2 md:mt-3 flex items-center text-xs text-gray-500 dark:text-gray-400">
+                                                <p class="mt-1 text-xs text-gray-600 dark:text-gray-300 md:text-sm">{{ course.description }}</p>
+                                                <div class="mt-2 flex items-center text-xs text-gray-500 dark:text-gray-400 md:mt-3">
                                                     <span class="mr-2">Created by:</span>
                                                     <span class="font-medium">Instructor #{{ course.created_by }}</span>
                                                 </div>
                                             </div>
                                             <button
-                                                class="h-7 w-7 md:h-8 md:w-8 rounded-full text-purple-600 transition-colors hover:bg-purple-50 hover:text-purple-800 dark:hover:bg-purple-900/30"
+                                                class="h-7 w-7 rounded-full text-purple-600 transition-colors hover:bg-purple-50 hover:text-purple-800 dark:hover:bg-purple-900/30 md:h-8 md:w-8"
                                             >
                                                 <BookOpen class="h-4 w-4 md:h-5 md:w-5" />
                                             </button>
                                         </div>
-                                        <div class="mt-3 md:mt-4 flex items-center justify-between border-t border-gray-100 pt-2 md:pt-3 dark:border-gray-700">
+                                        <div
+                                            class="mt-3 flex items-center justify-between border-t border-gray-100 pt-2 dark:border-gray-700 md:mt-4 md:pt-3"
+                                        >
                                             <div class="flex items-center">
-                                                <div class="h-1.5 w-16 md:w-24 rounded-full bg-gray-200 dark:bg-gray-700">
+                                                <div class="h-1.5 w-16 rounded-full bg-gray-200 dark:bg-gray-700 md:w-24">
                                                     <div class="h-1.5 rounded-full bg-purple-600" :style="{ width: `${getRandomProgress()}%` }"></div>
                                                 </div>
                                                 <span class="ml-2 text-xs text-gray-500 dark:text-gray-400">{{ getRandomProgress() }}%</span>
@@ -366,9 +376,9 @@ const breadcrumbs: BreadcrumbItem[] = [{ title: 'Dashboard', href: '/dashboard' 
 
                         <!-- Echo Cards Section -->
                         <div class="animate-fade-in rounded-xl bg-white shadow-md dark:bg-gray-800">
-                            <div class="flex items-center justify-between border-b border-gray-200 px-4 md:px-6 py-4 md:py-5 dark:border-gray-700">
-                                <h3 class="text-base md:text-lg font-semibold text-gray-700 dark:text-gray-200">Echo Cards</h3>
-                                <a href="/echo" class="flex items-center text-xs md:text-sm font-medium text-purple-600 hover:text-purple-800">
+                            <div class="flex items-center justify-between border-b border-gray-200 px-4 py-4 dark:border-gray-700 md:px-6 md:py-5">
+                                <h3 class="text-base font-semibold text-gray-700 dark:text-gray-200 md:text-lg">Echo Cards</h3>
+                                <a href="/echo" class="flex items-center text-xs font-medium text-purple-600 hover:text-purple-800 md:text-sm">
                                     Create new
                                     <svg class="ml-1 h-3 w-3 md:h-4 md:w-4" viewBox="0 0 20 20" fill="currentColor">
                                         <path
@@ -387,21 +397,25 @@ const breadcrumbs: BreadcrumbItem[] = [{ title: 'Dashboard', href: '/dashboard' 
                                     <div
                                         v-for="(card, index) in echoCards?.slice(0, 4)"
                                         :key="card.id"
-                                        class="echo-card rounded-lg border border-gray-200 p-3 md:p-4 transition-all hover:shadow-md dark:border-gray-700"
+                                        class="echo-card rounded-lg border border-gray-200 p-3 transition-all hover:shadow-md dark:border-gray-700 md:p-4"
                                         :class="{ 'bg-purple-50 dark:bg-purple-900/20': index === 0 }"
                                         @click="navigateTo(`/echo/${card.id}`)"
                                     >
-                                        <div class="mb-1 md:mb-2 flex items-center justify-between">
+                                        <div class="mb-1 flex items-center justify-between md:mb-2">
                                             <span
-                                                class="text-xs md:text-sm font-medium"
+                                                class="text-xs font-medium md:text-sm"
                                                 :class="index === 0 ? 'text-purple-600 dark:text-purple-400' : 'text-gray-600 dark:text-gray-300'"
-                                            >Echo Card</span
+                                                >Echo Card</span
                                             >
                                             <span class="text-xs text-gray-500 dark:text-gray-400">{{ formatDate(card.created_at) }}</span>
                                         </div>
-                                        <h4 class="mb-1 md:mb-2 font-medium text-sm md:text-base text-gray-800 dark:text-gray-100">{{ card.title || `Review Card #${card.id}` }}</h4>
-                                        <p class="text-xs md:text-sm text-gray-600 dark:text-gray-300">{{ card.content || 'No content available' }}</p>
-                                        <div class="mt-3 md:mt-4 flex items-center justify-between">
+                                        <h4 class="mb-1 text-sm font-medium text-gray-800 dark:text-gray-100 md:mb-2 md:text-base">
+                                            {{ card.title || `Review Card #${card.id}` }}
+                                        </h4>
+                                        <p class="text-xs text-gray-600 dark:text-gray-300 md:text-sm">
+                                            {{ card.content || 'No content available' }}
+                                        </p>
+                                        <div class="mt-3 flex items-center justify-between md:mt-4">
                                             <button
                                                 @click.stop="navigateTo(`/echo/${card.id}/edit`)"
                                                 class="text-xs font-medium text-purple-600 hover:text-purple-800"
@@ -422,11 +436,11 @@ const breadcrumbs: BreadcrumbItem[] = [{ title: 'Dashboard', href: '/dashboard' 
                     </div>
 
                     <!-- Tablet-optimized middle row: Messages and Badges side by side on tablets -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+                    <div class="grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-8">
                         <!-- Recent Messages -->
                         <div class="animate-fade-in rounded-xl bg-white shadow-md dark:bg-gray-800">
-                            <div class="flex items-center justify-between border-b border-gray-200 px-4 md:px-6 py-4 md:py-5 dark:border-gray-700">
-                                <h3 class="text-base md:text-lg font-semibold text-gray-700 dark:text-gray-200">Recent Messages</h3>
+                            <div class="flex items-center justify-between border-b border-gray-200 px-4 py-4 dark:border-gray-700 md:px-6 md:py-5">
+                                <h3 class="text-base font-semibold text-gray-700 dark:text-gray-200 md:text-lg">Recent Messages</h3>
                             </div>
                             <div class="p-4 md:p-6">
                                 <div v-if="groups.length === 0 || !hasMessages" class="py-4 text-center text-gray-500 dark:text-gray-400">
@@ -436,21 +450,25 @@ const breadcrumbs: BreadcrumbItem[] = [{ title: 'Dashboard', href: '/dashboard' 
                                     <div
                                         v-for="group in groupsWithMessages"
                                         :key="group.id"
-                                        class="message-card rounded-lg border border-gray-200 p-3 md:p-4 transition-colors hover:bg-gray-50 dark:border-gray-700 dark:hover:bg-gray-700"
+                                        class="message-card rounded-lg border border-gray-200 p-3 transition-colors hover:bg-gray-50 dark:border-gray-700 dark:hover:bg-gray-700 md:p-4"
                                         @click="navigateTo(`/groups/${group.group_id}`)"
                                     >
-                                        <div class="mb-1 md:mb-2 flex items-start justify-between">
-                                            <h4 class="flex items-center font-medium text-sm md:text-base text-gray-800 dark:text-gray-100">
-                                                <MessageCircle class="mr-1 md:mr-2 h-3 w-3 md:h-4 md:w-4 text-purple-600 dark:text-purple-400" />
+                                        <div class="mb-1 flex items-start justify-between md:mb-2">
+                                            <h4 class="flex items-center text-sm font-medium text-gray-800 dark:text-gray-100 md:text-base">
+                                                <MessageCircle class="mr-1 h-3 w-3 text-purple-600 dark:text-purple-400 md:mr-2 md:h-4 md:w-4" />
                                                 Group #{{ group.group_id }}
                                             </h4>
                                             <span class="text-xs text-gray-500 dark:text-gray-400">{{
-                                                    formatTimeAgo(group.latest_message.sent_at)
-                                                }}</span>
+                                                formatTimeAgo(group.latest_message.sent_at)
+                                            }}</span>
                                         </div>
-                                        <p class="mb-2 md:mb-3 text-xs md:text-sm text-gray-600 dark:text-gray-300">{{ group.latest_message.content }}</p>
+                                        <p class="mb-2 text-xs text-gray-600 dark:text-gray-300 md:mb-3 md:text-sm">
+                                            {{ group.latest_message.content }}
+                                        </p>
                                         <div class="flex items-center justify-between">
-                                            <span class="text-xs text-gray-500 dark:text-gray-400">From: User #{{ group.latest_message.user_id }}</span>
+                                            <span class="text-xs text-gray-500 dark:text-gray-400"
+                                                >From: User #{{ group.latest_message.user_id }}</span
+                                            >
                                             <button
                                                 @click.stop="navigateTo(`/groups/${group.group_id}/reply`)"
                                                 class="text-xs font-medium text-purple-600 hover:text-purple-800"
@@ -465,8 +483,8 @@ const breadcrumbs: BreadcrumbItem[] = [{ title: 'Dashboard', href: '/dashboard' 
 
                         <!-- Badges -->
                         <div class="animate-fade-in rounded-xl bg-white shadow-md dark:bg-gray-800">
-                            <div class="border-b border-gray-200 px-4 md:px-6 py-4 md:py-5 dark:border-gray-700">
-                                <h3 class="text-base md:text-lg font-semibold text-gray-700 dark:text-gray-200">Your Badges</h3>
+                            <div class="border-b border-gray-200 px-4 py-4 dark:border-gray-700 md:px-6 md:py-5">
+                                <h3 class="text-base font-semibold text-gray-700 dark:text-gray-200 md:text-lg">Your Badges</h3>
                             </div>
                             <div class="p-4 md:p-6">
                                 <div v-if="badges.length === 0" class="py-4 text-center text-gray-500 dark:text-gray-400">No badges earned yet.</div>
@@ -478,20 +496,22 @@ const breadcrumbs: BreadcrumbItem[] = [{ title: 'Dashboard', href: '/dashboard' 
                                         @click="navigateTo(`/badges/${badge.id}`)"
                                     >
                                         <div
-                                            class="badge-icon mb-1 md:mb-2 flex h-12 w-12 md:h-16 md:w-16 items-center justify-center rounded-full bg-purple-100 dark:bg-purple-900/30"
+                                            class="badge-icon mb-1 flex h-12 w-12 items-center justify-center rounded-full bg-purple-100 dark:bg-purple-900/30 md:mb-2 md:h-16 md:w-16"
                                         >
-                                            <Shield class="h-6 w-6 md:h-8 md:w-8 text-purple-600 dark:text-purple-400" />
+                                            <Shield class="h-6 w-6 text-purple-600 dark:text-purple-400 md:h-8 md:w-8" />
                                         </div>
-                                        <span class="text-center text-xs md:text-sm font-medium text-gray-800 dark:text-gray-100">{{
-                                                badge.name || 'Achievement Badge'
-                                            }}</span>
-                                        <span class="mt-0.5 md:mt-1 text-xs text-gray-500 dark:text-gray-400">{{ formatDate(badge.created_at) }}</span>
+                                        <span class="text-center text-xs font-medium text-gray-800 dark:text-gray-100 md:text-sm">{{
+                                            badge.name || 'Achievement Badge'
+                                        }}</span>
+                                        <span class="mt-0.5 text-xs text-gray-500 dark:text-gray-400 md:mt-1">{{
+                                            formatDate(badge.created_at)
+                                        }}</span>
                                     </div>
                                 </div>
-                                <div class="mt-3 md:mt-4 text-center">
+                                <div class="mt-3 text-center md:mt-4">
                                     <button
                                         @click="navigateTo('/user/badges')"
-                                        class="text-xs md:text-sm font-medium text-purple-600 hover:text-purple-800"
+                                        class="text-xs font-medium text-purple-600 hover:text-purple-800 md:text-sm"
                                     >
                                         View all badges
                                     </button>
@@ -502,14 +522,14 @@ const breadcrumbs: BreadcrumbItem[] = [{ title: 'Dashboard', href: '/dashboard' 
 
                     <!-- Upcoming Deadlines - Full width on all screens -->
                     <div class="animate-fade-in rounded-xl bg-white shadow-md dark:bg-gray-800">
-                        <div class="flex items-center border-b border-gray-200 px-4 md:px-6 py-4 md:py-5 dark:border-gray-700">
-                            <Calendar class="mr-2 h-4 w-4 md:h-5 md:w-5 text-purple-600 dark:text-purple-400" />
-                            <h3 class="text-base md:text-lg font-semibold text-gray-700 dark:text-gray-200">Upcoming Deadlines</h3>
+                        <div class="flex items-center border-b border-gray-200 px-4 py-4 dark:border-gray-700 md:px-6 md:py-5">
+                            <Calendar class="mr-2 h-4 w-4 text-purple-600 dark:text-purple-400 md:h-5 md:w-5" />
+                            <h3 class="text-base font-semibold text-gray-700 dark:text-gray-200 md:text-lg">Upcoming Deadlines</h3>
                         </div>
                         <div class="p-4 md:p-6">
                             <ul class="divide-y divide-gray-200 dark:divide-gray-700">
                                 <li
-                                    class="flex items-center justify-between py-2 md:py-3 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700"
+                                    class="flex cursor-pointer items-center justify-between py-2 hover:bg-gray-50 dark:hover:bg-gray-700 md:py-3"
                                     @click="navigateTo('/assignments/1')"
                                 >
                                     <div>
@@ -519,7 +539,7 @@ const breadcrumbs: BreadcrumbItem[] = [{ title: 'Dashboard', href: '/dashboard' 
                                     <span class="text-xs font-medium text-red-600 dark:text-red-400">2 days left</span>
                                 </li>
                                 <li
-                                    class="flex items-center justify-between py-2 md:py-3 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700"
+                                    class="flex cursor-pointer items-center justify-between py-2 hover:bg-gray-50 dark:hover:bg-gray-700 md:py-3"
                                     @click="navigateTo('/groups/projects/1')"
                                 >
                                     <div>
@@ -529,7 +549,7 @@ const breadcrumbs: BreadcrumbItem[] = [{ title: 'Dashboard', href: '/dashboard' 
                                     <span class="text-xs font-medium text-yellow-600 dark:text-yellow-400">5 days left</span>
                                 </li>
                                 <li
-                                    class="flex items-center justify-between py-2 md:py-3 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700"
+                                    class="flex cursor-pointer items-center justify-between py-2 hover:bg-gray-50 dark:hover:bg-gray-700 md:py-3"
                                     @click="navigateTo('/quizzes/2')"
                                 >
                                     <div>
@@ -654,11 +674,15 @@ const breadcrumbs: BreadcrumbItem[] = [{ title: 'Dashboard', href: '/dashboard' 
         right: 1rem;
     }
 
-    .course-card, .echo-card, .message-card {
+    .course-card,
+    .echo-card,
+    .message-card {
         transition: all 0.2s ease;
     }
 
-    .course-card:active, .echo-card:active, .message-card:active {
+    .course-card:active,
+    .echo-card:active,
+    .message-card:active {
         transform: scale(0.98);
     }
 }

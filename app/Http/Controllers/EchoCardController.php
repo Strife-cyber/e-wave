@@ -14,8 +14,9 @@ class EchoCardController extends Controller
     public function index()
     {
         $contents = Content::all();
+
         return Inertia::render('chamber/Index', [
-            'contents' => $contents
+            'contents' => $contents,
         ]);
     }
 

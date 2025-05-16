@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Recommendation;
 use App\Http\Requests\StoreRecommendationRequest;
 use App\Http\Requests\UpdateRecommendationRequest;
+use App\Models\Recommendation;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 
@@ -17,6 +17,7 @@ class RecommendationController extends Controller
     {
         $user = User::find(auth()->user()->getAuthIdentifier());
         $recommendations = $user->recommendations()->with('content')->orderBy('priority')->get();
+
         return response()->json($recommendations);
     }
 

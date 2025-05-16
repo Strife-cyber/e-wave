@@ -1,4 +1,4 @@
-@import "katex/dist/katex.min.css";
+@import 'katex/dist/katex.min.css';
 
 @tailwind base;
 @tailwind components;
@@ -112,7 +112,7 @@ html {
 }
 
 /* Prevent inline math from breaking text flow */
-.katex[display="inline"] {
+.katex[display='inline'] {
     vertical-align: middle;
 }
 

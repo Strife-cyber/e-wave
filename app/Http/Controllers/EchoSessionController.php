@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\EchoSession;
 use App\Http\Requests\StoreEchoSessionRequest;
 use App\Http\Requests\UpdateEchoSessionRequest;
+use App\Models\EchoSession;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 
@@ -18,6 +18,7 @@ class EchoSessionController extends Controller
         $auth = auth()->user();
         $user = User::find($auth->getAuthIdentifier());
         $sessions = $user->echo_session();
+
         return response()->json($sessions);
     }
 

@@ -35,7 +35,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     });
 
     // Lessons Routes
-    Route::resource('lessons', LessonController::class)->except(['create', 'edit']);
+    Route::resource('lessons', LessonController::class)->except(['edit']);
     Route::resource('echo', \App\Http\Controllers\EchoCardController::class);
 
     // User-specific routes

@@ -85,7 +85,7 @@ class User extends Authenticatable
         'password',
         'role',
         'profile',
-        'provider'
+        'provider',
     ];
 
     /**

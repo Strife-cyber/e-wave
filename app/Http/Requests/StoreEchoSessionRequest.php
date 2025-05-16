@@ -24,7 +24,7 @@ class StoreEchoSessionRequest extends FormRequest
         return [
             'content_id' => 'required|exists:contents,id',
             'score' => 'required|integer',
-            'reflection' => 'nullable|string'
+            'reflection' => 'nullable|string',
         ];
     }
 }

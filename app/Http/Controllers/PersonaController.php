@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Persona;
 use App\Http\Requests\StorePersonaRequest;
 use App\Http\Requests\UpdatePersonaRequest;
+use App\Models\Persona;
 
 class PersonaController extends Controller
 {

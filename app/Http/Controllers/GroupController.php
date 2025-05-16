@@ -57,7 +57,7 @@ class GroupController extends Controller
             'group' => $group,
             'currentUser' => $user,
             'success' => '',
-            'attachment' => []
+            'attachment' => [],
         ]);
     }
 

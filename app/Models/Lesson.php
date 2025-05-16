@@ -47,6 +47,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static Builder|Lesson whereCreatedAt($value)
  * @method static Builder|Lesson whereUpdatedAt($value)
  * @method static Builder|Lesson whereBright($value)
+ * @method static where(string $string, mixed $courseId)
+ * @method static create(array $array)
  */
 class Lesson extends Model
 {
@@ -83,9 +85,11 @@ class Lesson extends Model
         'course_id',
         'title',
         'type',
+        'description',
         'content',
         'order_no',
         'bright',
+        'unique_id',
     ];
 
     /**

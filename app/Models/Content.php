@@ -11,7 +11,7 @@ class Content extends Model
     use HasFactory;
 
     protected $fillable = [
-        'title', 'body', 'type', 'level', 'persona_id'
+        'title', 'body', 'type', 'level', 'persona_id',
     ];
 
     protected $casts = [

@@ -6,8 +6,8 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import AuthBase from '@/layouts/AuthLayout.vue';
-import { Head, useForm } from '@inertiajs/vue3';
 import { signInWithSocialProvider } from '@/services/auth-service';
+import { Head, useForm } from '@inertiajs/vue3';
 import { BookOpen, GraduationCap, LoaderCircle, Lock, Mail } from 'lucide-vue-next';
 
 const props = defineProps<{
@@ -31,26 +31,34 @@ const submit = () => {
 
 // Handle Google sign-in
 const handleGoogleSignIn = async () => {
-    await signInWithSocialProvider('google', {
-        onStart: () => console.log('Google sign-in started'),
-        onFinish: () => console.log('Google sign-in finished'),
-        onFirebaseSuccess: (user) => console.log('Firebase success:', user),
-        onFirebaseError: (code, message) => console.error('Firebase error:', code, message),
-        onBackendSuccess: () => console.log('Backend success'),
-        onBackendError: (message) => console.error('Backend error:', message),
-    }, props.token); // Pass the token
+    await signInWithSocialProvider(
+        'google',
+        {
+            onStart: () => console.log('Google sign-in started'),
+            onFinish: () => console.log('Google sign-in finished'),
+            onFirebaseSuccess: (user) => console.log('Firebase success:', user),
+            onFirebaseError: (code, message) => console.error('Firebase error:', code, message),
+            onBackendSuccess: () => console.log('Backend success'),
+            onBackendError: (message) => console.error('Backend error:', message),
+        },
+        props.token,
+    ); // Pass the token
 };
 
 // Handle GitHub sign-in
 const handleGitHubSignIn = async () => {
-    await signInWithSocialProvider('github', {
-        onStart: () => console.log('GitHub sign-in started'),
-        onFinish: () => console.log('GitHub sign-in finished'),
-        onFirebaseSuccess: (user) => console.log('Firebase success:', user),
-        onFirebaseError: (code, message) => console.error('Firebase error:', code, message),
-        onBackendSuccess: () => console.log('Backend success'),
-        onBackendError: (message) => console.error('Backend error:', message),
-    }, props.token); // Pass the token
+    await signInWithSocialProvider(
+        'github',
+        {
+            onStart: () => console.log('GitHub sign-in started'),
+            onFinish: () => console.log('GitHub sign-in finished'),
+            onFirebaseSuccess: (user) => console.log('Firebase success:', user),
+            onFirebaseError: (code, message) => console.error('Firebase error:', code, message),
+            onBackendSuccess: () => console.log('Backend success'),
+            onBackendError: (message) => console.error('Backend error:', message),
+        },
+        props.token,
+    ); // Pass the token
 };
 
 // Set the token from props when available
@@ -209,13 +217,7 @@ form.token = props.token ?? '';
             </div>
             <div class="flex animate-pulse flex-col items-center" style="animation-delay: 0.2s">
                 <div class="rounded-full bg-cyan-100 p-3">
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        class="h-6 w-6 text-cyan-600"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                    >
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-cyan-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path
                             stroke-linecap="round"
                             stroke-linejoin="round"

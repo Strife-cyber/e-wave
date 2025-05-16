@@ -35,12 +35,9 @@ function determineQueryComplexity(query) {
     const complexKeywords = ['explain', 'analyze', 'compare', 'derive', 'prove', 'multi-step', 'technical'];
     const intermediateKeywords = ['summarize', 'describe', 'how does', 'why is'];
 
-    if (complexKeywords.some(keyword => query.toLowerCase().includes(keyword)) || words > 50) {
+    if (complexKeywords.some((keyword) => query.toLowerCase().includes(keyword)) || words > 50) {
         return 'complex';
-    } else if (
-        intermediateKeywords.some(keyword => query.toLowerCase().includes(keyword)) ||
-        words > 20
-    ) {
+    } else if (intermediateKeywords.some((keyword) => query.toLowerCase().includes(keyword)) || words > 20) {
         return 'intermediate';
     }
     return 'simple';
@@ -203,7 +200,9 @@ function generateMockResponse(question) {
         response: `That's an interesting question about "${question
             .split(' ')
             .slice(0, 3)
-            .join(' ')}...". In an academic context, I would approach this by researching credible sources and analyzing different perspectives. Could you provide more specific details about what aspect you're interested in?`,
+            .join(
+                ' ',
+            )}...". In an academic context, I would approach this by researching credible sources and analyzing different perspectives. Could you provide more specific details about what aspect you're interested in?`,
         summary: 'No key points available yet; please clarify the query.',
         quiz: 'What specific aspect of this topic would you like to explore?',
         modelUsed: 'mock-model',

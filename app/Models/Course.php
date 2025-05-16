@@ -46,6 +46,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static Builder|Course whereCreatedAt($value)
  * @method static Builder|Course whereUpdatedAt($value)
  * @method static Builder|Course whereIn(string $column, \Illuminate\Support\Collection|array $values)
+ * @method static create(mixed $validated)
  */
 class Course extends Model
 {

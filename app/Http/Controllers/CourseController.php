@@ -46,7 +46,11 @@ class CourseController extends Controller
      */
     public function store(CourseStoreRequest $request)
     {
-        //
+        $validated = $request->validated();
+        $validated['text'] = $validated['description'];
+        $validated['created_by'] = auth()->user()->getAuthIdentifier();
+
+        Course::create($validated);
     }
 
     /**

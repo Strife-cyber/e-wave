@@ -18,6 +18,6 @@ class Token extends Model
         'token',
         'type',
         'expires_at',
-        'user_id'
+        'user_id',
     ];
 }

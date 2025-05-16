@@ -25,7 +25,7 @@ class AuthenticatedSessionController extends Controller
         $key = env('REGISTRATION_TOKEN_KEY');
         $iv = openssl_random_pseudo_bytes(openssl_cipher_iv_length('aes-256-cbc'));
         $encryptedToken = openssl_encrypt($token, 'aes-256-cbc', $key, 0, $iv);
-        $encryptedToken = base64_encode($encryptedToken . '::' . $iv);
+        $encryptedToken = base64_encode($encryptedToken.'::'.$iv);
 
         Token::create([
             'token' => $encryptedToken,
@@ -58,7 +58,7 @@ class AuthenticatedSessionController extends Controller
 
             $validToken = null;
             foreach ($tokens as $token) {
-                list($encryptedToken, $iv) = explode('::', base64_decode($token->token));
+                [$encryptedToken, $iv] = explode('::', base64_decode($token->token));
                 $decryptedToken = openssl_decrypt($encryptedToken, 'aes-256-cbc', $key, 0, $iv);
                 if ($decryptedToken === $plainToken) {
                     $validToken = $token;
@@ -66,7 +66,7 @@ class AuthenticatedSessionController extends Controller
                 }
             }
 
-            if (!$validToken) {
+            if (! $validToken) {
                 return redirect()->back()->withErrors(['token' => 'Invalid or expired token']);
             }
             $validToken->delete();
@@ -76,6 +76,7 @@ class AuthenticatedSessionController extends Controller
         if ($user && $user->provider === 'social') {
             Auth::login($user);
             $request->session()->regenerate();
+
             return redirect()->intended(route('dashboard', absolute: false));
         }
 

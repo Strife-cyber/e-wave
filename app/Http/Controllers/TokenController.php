@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Token;
 use App\Http\Requests\StoreTokenRequest;
 use App\Http\Requests\UpdateTokenRequest;
+use App\Models\Token;
 
 class TokenController extends Controller
 {
